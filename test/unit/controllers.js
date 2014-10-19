@@ -12,12 +12,12 @@ describe('Volleyball controllers', function() {
         playerService = {
             getPlayers: function() { return playersFixture;}
         };
-        $controller('StandingsController',{$scope:$scope, PlayerService:playerService});
+        $controller('StandingsCtrl',{$scope:$scope, PlayerService:playerService});
     }));
     describe('Standings Controller',function(){
-        it('should populate players', inject(function(_playerService_) {
+        it('should populate players', function() {
             expect($scope.players).toBe(playersFixture);
-        }));
+        });
 
     });
 });

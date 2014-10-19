@@ -1,0 +1,7 @@
+<div ng-controller="StandingsCtrl as standings">
+    <ol>
+        <li ng-repeat="player in players">
+        {{player.name}} ({{player.wins}}-{{player.losses}})
+        </li>
+    </ol>
+</div>
