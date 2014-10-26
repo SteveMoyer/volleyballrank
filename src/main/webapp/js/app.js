@@ -3,19 +3,19 @@ var vbApp = angular.module('vbRank',['ngRoute','vbRankControllers','vbRankServic
 vbApp.directive('standings',function(){
    return {
     restrict: 'E',
-    templateUrl: '/app/partials/standings.html'
+    templateUrl: 'views/standings.html'
 };});
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/standings',
         {
-            controller: 'StandingsController',
-            templateUrl: '/app/views/standings.html'
+            controller: 'StandingsCtrl',
+            templateUrl: 'views/standings.html'
         }).
     when('/profile',
         {
-            controller: 'ProfileController',
-            templateUrl: '/app/views/profile.html'
+            controller: 'ProfileCtrl',
+            templateUrl: 'views/profile.html'
         }).
     otherwise(
         { redirectTo: '/profile'
