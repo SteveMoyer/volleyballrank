@@ -8,5 +8,8 @@ vbRankControllers.controller('StandingsCtrl',
 }]);
 vbRankControllers.controller('ProfileCtrl',
         ['$scope','PlayerService',function($scope,PlayerService) {
+            PlayerService.getPlayer().then(function(player){
+                $scope.player= player;
+            });
 
 }]);
