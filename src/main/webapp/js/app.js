@@ -7,17 +7,7 @@ vbApp.directive('standings',function(){
 };});
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
-    when('/standings',
-        {
-            controller: 'StandingsCtrl',
-            templateUrl: 'views/standings.html'
-        }).
-    when('/profile',
-        {
-            controller: 'ProfileCtrl',
-            templateUrl: 'views/profile.html'
-        }).
-    otherwise(
-        { redirectTo: '/profile'
-        });
+    when('/standings', { template: '<standings></standings>' }).
+    when('/profile', { template: '<profile></profile>' }).
+    otherwise( { redirectTo: '/profile' });
 }]);

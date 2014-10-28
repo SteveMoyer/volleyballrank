@@ -1,9 +1,11 @@
 'use strict';
 var vbApp = angular.module('vbRankServices',[]);
-vbApp.service('PlayerService', function() {
+vbApp.service('PlayerService',['$http','$q', function($http,$q) {
     this.getPlayers = function() {
-        return [
-        { name: "jim", wins:5, losses:1},
-        { name: "john", wins:4, losses:2} ];
-};
-});
+        var q = $q.defer();
+        $http.get('/rest/players/standings').success(function(data) {
+            q.resolve(data);
+        });
+        return q.promise;
+    };
+}]);

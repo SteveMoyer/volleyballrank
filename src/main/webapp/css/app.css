@@ -1,0 +1,17 @@
+.table {
+    border-spacing: 2px;
+    border: 2px solid black
+}
+.table td {
+    border: 2px solid black;
+    padding:5px;
+}
+.win {
+    background-color:lightgreen;
+}
+.loss {
+      background-color:#FF6600;
+}
+.table tbody tr:nth-child(odd) {
+       background-color: #ccc;
+   }
