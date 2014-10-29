@@ -1,6 +1,5 @@
 'use strict';
 
-/* jasmine specs for routes go here */
 describe('Volleyball routes', function() {
 
     beforeEach(module('vbRank'));

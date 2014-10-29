@@ -5,6 +5,11 @@ vbApp.directive('standings',function(){
     restrict: 'E',
     templateUrl: 'views/standings.html'
 };});
+vbApp.directive('profile',function(){
+   return {
+    restrict: 'E',
+    templateUrl: 'views/profile.html'
+};});
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/standings', { template: '<standings></standings>' }).

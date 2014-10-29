@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
                 return new Player("Anon me special case",4,2);
             }
         @GET @Path("{playerId}")
-            public Player getMe(@PathParam("playerId") String playerId) {
+            public Player getPlayer(@PathParam("playerId") String playerId) {
                 return new Player("Anon " +playerId,4,2);
             }
 

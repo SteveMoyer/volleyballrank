@@ -11,8 +11,8 @@ vbApp.service('PlayerService',['$http','$q', function($http,$q) {
     this.getPlayer = function(playerId) {
         var q = $q.defer();
         var url;
-        if(playerId == nil){
-            url='/rest/me';
+        if(playerId == null){
+            url='/rest/players/me';
         } else {
             url='/rest/players/' + playerId;
         }
