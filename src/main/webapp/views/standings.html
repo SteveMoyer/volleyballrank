@@ -7,8 +7,16 @@
     </thead>
         <tbody>
         <tr ng-repeat="player in players">
-            <td>{{player.name}}</td><td> ({{player.wins}}-{{player.losses}})</td>
+            <td><a href="#players/{{player.id}}">{{player.name}}</a></td><td> ({{player.wins}}-{{player.losses}})</td>
         </tr>
     </tbody>
     </table>
+    <input type="button" value="Add a player" ng-hide="addingPlayer"
+           ng-click="addingPlayer=!addingPlayer"/>
+    <form ng-submit="insertPlayer()" ng-show="addingPlayer">
+        <input type="email" ng-model="emailAddress" placeholder="email address" required />
+        <input type="text" ng-model="name" placeholder="name" required />
+        <input type="submit" value="add">
+        <input type="button" value="cancel" ng-click="addingPlayer=!addingPlayer" />
+    </form>
 </div>

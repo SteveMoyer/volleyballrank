@@ -27,4 +27,17 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
 
         return q.promise;
     };
+    this.insertPlayer = function(newPlayer) {
+        var q = $q.defer();
+        var url;
+
+        url = '/rest/players';
+
+        $http.post(url, newPlayer).success(function(data) {
+            q.resolve(data);
+        });
+
+        return q.promise;
+
+    };
 }]);

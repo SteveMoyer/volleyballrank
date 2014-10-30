@@ -46,29 +46,29 @@ public class Player {
     public String getEmailAddress() {
         return emailAddress;
     }
-        public void setId(Long idIn) {
-                    this.id = idIn;
-                        }
+    public void setId(Long idIn) {
+        this.id = idIn;
+    }
 
-            public void setName(String nameIn) {
-                        this.name = nameIn;
-                            }
+    public void setName(String nameIn) {
+        this.name = nameIn;
+    }
 
-                public void setEmailAddress(String emailAddress) {
-                            this.emailAddress = emailAddress;
-                                }
-                    public int getWins(){
-                                return wins;
-                                    }
-                        public void setWins(int wins) {
-                                    this.wins=wins;
-                                        }
-                            public int getLosses(){
-                                        return        losses;
-                                            }
-                                public void setLosses(int losses) {
-                                            this.losses=losses;
-                                                }
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+    public int getWins(){
+        return wins;
+    }
+    public void setWins(int wins) {
+        this.wins=wins;
+    }
+    public int getLosses(){
+        return        losses;
+    }
+    public void setLosses(int losses) {
+        this.losses=losses;
+    }
 
 }
-    
+
