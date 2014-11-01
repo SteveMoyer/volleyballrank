@@ -13,8 +13,7 @@ import com.google.appengine.api.datastore.Key;
 @XmlRootElement
 @PersistenceCapable
 public class Player {
-    @PrimaryKey
-        @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
         private Long id;
     @Persistent
         private String emailAddress;

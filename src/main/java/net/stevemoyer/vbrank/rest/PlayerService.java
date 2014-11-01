@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.jdo.PersistenceManager;
 
-@Path("/players") @Produces(MediaType.APPLICATION_JSON) public class PlayerService {
+@Path("/players") @Produces(MediaType.APPLICATION_JSON)
+public class PlayerService {
     PersistenceManager pm = PMF.getInstance().getPersistenceManager();
 
     @GET @Path("me") public Player getMe() {

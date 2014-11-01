@@ -44,12 +44,13 @@ describe('Volleyball controllers', function() {
 
         beforeEach(function() {
             deferred = q.defer();
-            spyOn(playerService, 'getPlayer').andReturn(deferred.promise);
             deferred.resolve(playerFixture);
+            controller('ProfileCtrl', {$scope:scope, PlayerService:playerService});
         });
 
         it('should populate player', function() {
-            controller('ProfileCtrl', {$scope:scope, PlayerService:playerService});
+            spyOn(playerService, 'getPlayer').andReturn(deferred.promise);
+            scope.getPlayer();
             rootScope.$apply();
 
             expect(scope.player).toBe(playerFixture);

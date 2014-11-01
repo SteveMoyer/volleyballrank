@@ -18,22 +18,23 @@ describe('Volleyball services', function() {
             deferred.resolve({});
         }));
 
+        describe('getPlayer', function() {
+            it('should call get on me if not given a playerId', function() {
+                spyOn(http, 'get').andReturn({success: function(){}});
 
-        it('should call get on me if not given a playerId', function() {
-            spyOn(http, 'get').andReturn({success: function(){}});
+                playerService.getPlayer();
+                rootScope.$apply();
 
-            playerService.getPlayer();
-            rootScope.$apply();
+                expect(http.get).toHaveBeenCalledWith('/rest/players/me');
+            });
+            it('should call get with playerId if provided', function() {
+                spyOn(http, 'get').andReturn({success: function(){}});
 
-            expect(http.get).toHaveBeenCalledWith('/rest/players/me');
-        });
-        it('should call get with playerId if provided', function() {
-            spyOn(http, 'get').andReturn({success: function(){}});
+                playerService.getPlayer("player2");
+                rootScope.$apply();
 
-            playerService.getPlayer("player2");
-            rootScope.$apply();
-
-            expect(http.get).toHaveBeenCalledWith('/rest/players/player2');
+                expect(http.get).toHaveBeenCalledWith('/rest/players/player2');
+            });
         });
     });
 });

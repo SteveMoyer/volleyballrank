@@ -1,0 +1,15 @@
+<div ng-show="newGame">
+    <form ng-submit="addGame()" >
+        <table>
+            <tr><td><select ng-model="newGame.playerA" ng-options="player.name for player in players" ></select></td>
+                <td rowspan=3> VS </td>
+                <td><select ng-model="newGame.playerC" ng-options="player.name for player in players" ></select></td>
+            </tr>
+            <tr><td><select ng-model="newGame.playerB" ng-options="player.name for player in players" ></select></td>
+                <td><select ng-model="newGame.playerD" ng-options="player.name for player in players" ></select></td></tr>
+            <tr><td>Score: <input type="text" size="2" ng-model="newGame.teamABScore" /></td>
+                <td>Score: <input type="text" size="2" ng-model="newGame.teamCDScore" /></td></tr>
+            <tr><td><input type="submit" value="Add Game" /></td></tr>
+        </table>
+    </form>
+</div>

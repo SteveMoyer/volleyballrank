@@ -38,6 +38,19 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
         });
 
         return q.promise;
+    };
+}]);
+vbApp.service('GameService', ['$http', '$q', function($http, $q) {
+    this.addGame = function(newGame) {
+        var deferred = $q.defer();
+        var url;
 
+        url = '/rest/games';
+
+        $http.post(url, newGame).success(function(data) {
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
     };
 }]);
