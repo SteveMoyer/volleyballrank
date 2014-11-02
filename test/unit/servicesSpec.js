@@ -36,6 +36,8 @@ describe('Volleyball services', function() {
                 expect(http.get).toHaveBeenCalledWith('/rest/players/player2');
             });
         });
+        describe('insertPlayer', function() {
+        });
     });
 });
 

@@ -1,4 +1,7 @@
 package net.stevemoyer.vbrank.rest;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -15,23 +18,20 @@ import com.google.appengine.api.datastore.Key;
 public class Player {
     @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
         private Long id;
-    @Persistent
-        private String emailAddress;
-    @Persistent
-        private String name;
-    @Persistent
-        private int wins=0;
-    @Persistent
-        private int losses=0;
+    @Persistent private String emailAddress;
+    @Persistent private String name;
+    @Persistent private int wins=0;
+    @Persistent private int losses=0;
+    @Persistent private BigDecimal winningPercentage;
     public Player() {
 
     }
     public Player(Long id, String emailAddress, String name, int wins, int losses) {
         this.id = id;
-        this.emailAddress=emailAddress;
-        this.name=name;
-        this.wins=wins;
-        this.losses=losses;
+        this.emailAddress = emailAddress;
+        this.name = name;
+        this.wins = wins;
+        this.losses = losses;
     }
 
     public Long getId() {
@@ -60,13 +60,34 @@ public class Player {
         return wins;
     }
     public void setWins(int wins) {
-        this.wins=wins;
+        this.wins = wins;
+        updateWinningPercentage();
     }
     public int getLosses(){
-        return        losses;
+        return losses;
     }
     public void setLosses(int losses) {
-        this.losses=losses;
+        this.losses = losses;
+        updateWinningPercentage();
+    }
+    public BigDecimal getWinningPercentage() {
+        if(winningPercentage == null) {
+            updateWinningPercentage();
+        }
+        return winningPercentage;
+    }
+    private void updateWinningPercentage() {
+        if(wins == 0) {
+            winningPercentage = new BigDecimal(0);
+            return;
+        }
+        if(losses == 0) {
+            winningPercentage = new BigDecimal(1);
+            return;
+        }
+
+        winningPercentage =
+                new BigDecimal(wins).divide(new BigDecimal(wins+losses),3,RoundingMode.HALF_UP);
     }
 
 }

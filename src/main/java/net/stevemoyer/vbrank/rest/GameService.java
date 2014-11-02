@@ -46,7 +46,4 @@ public class GameService {
         }
         pm.makePersistent(player);
     }
-
-
-
 }

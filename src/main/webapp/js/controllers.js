@@ -33,11 +33,12 @@ vbRankControllers.controller('NewGameCtrl',
         ['$scope', 'GameService', 'PlayerService', function($scope, GameService, PlayerService) {
             $scope.addGame = function() {
                 GameService.addGame($scope.newGame).then(function(game){
-                    $scope.newGame = {};
                 });
             };
+            $scope.addingGame=false;
             PlayerService.getPlayers().then(function(playerList){
                     $scope.players = playerList;
                     $scope.newGame={};
+                    $scope.addingGame=true;
             });
         }]);

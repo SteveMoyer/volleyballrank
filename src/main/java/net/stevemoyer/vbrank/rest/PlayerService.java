@@ -58,6 +58,7 @@ public class PlayerService {
 
     @GET public List<Player> getStanding(){
         Query q = pm.newQuery(Player.class);
+        q.setOrdering("winningPercentage desc, wins desc, losses");
         return (List<Player>) q.execute();
     }
 
