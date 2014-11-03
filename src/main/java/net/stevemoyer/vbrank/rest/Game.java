@@ -1,14 +1,9 @@
 package net.stevemoyer.vbrank.rest;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.appengine.api.datastore.Key;
 
 @XmlRootElement
 @PersistenceCapable

@@ -1,29 +1,13 @@
 package net.stevemoyer.vbrank.rest;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.PreparedQuery;
-import javax.inject.Named;
-import javax.jdo.Query;
-import java.util.List;
-import java.util.ArrayList;
+
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/players") @Produces(MediaType.APPLICATION_JSON)
 public class PlayerService {
@@ -39,8 +23,7 @@ public class PlayerService {
         Query q = pm.newQuery(Player.class);
         q.setFilter("emailAddress == emailAddressParam");
         q.declareParameters("String emailAddressParam");
-
-        List<Player> players =(List<Player>) q.execute(emailAddress);
+        List<Player> players = (List<Player>) q.execute(emailAddress);
 
         if(!players.isEmpty()) {
             return players.get(0);
