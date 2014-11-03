@@ -1,27 +1,27 @@
-<div ng-controller="StandingsCtrl as standings" ng-show="players">
+<div ng-show="standings.players">
     <table class="table-bordered table-striped">
         <thead>
-        <tr>
-            <th>Player</th><th>Record</th><th></th>
-        </tr>
-    </thead>
+            <tr>
+                <th>Player</th><th>Record</th><th></th>
+            </tr>
+        </thead>
         <tbody>
-        <tr ng-repeat="player in players">
-            <td><a href="#players/{{player.id}}">{{player.name}}</a></td>
-            <td>({{player.wins}}-{{player.losses}})</td>
-            <td>{{player.winningPercentage | number:3}}</td>
-        </tr>
-    </tbody>
+            <tr ng-repeat="player in standings.players">
+                <td><a href="#players/{{player.id}}">{{player.name}}</a></td>
+                <td>({{player.wins}}-{{player.losses}})</td>
+                <td>{{player.winningPercentage | number:3}}</td>
+            </tr>
+        </tbody>
     </table>
-    <input type="button" value="Add a player" ng-hide="addingPlayer"
-           ng-click="addingPlayer=!addingPlayer"/>
-<div ng-show="addingPlayer">
-    Add a new Player
-    <form ng-submit="insertPlayer()" >
-        <input type="email" ng-model="emailAddress" placeholder="email address" required />
-        <input type="text" ng-model="name" placeholder="name" required />
-        <input type="submit" value="add">
-        <input type="button" value="cancel" ng-click="addingPlayer=!addingPlayer" />
-    </form>
-</div>
+    <input type="button" value="Add a player" ng-hide="standings.addingPlayer"
+    ng-click="standings.addingPlayer=!standings.addingPlayer"/>
+    <div ng-show="standings.addingPlayer">
+        Add a new player.
+        <form ng-submit="standings.insertPlayer()" >
+            <input type="email" ng-model="standings.emailAddress" placeholder="email address" required />
+            <input type="text" ng-model="standings.name" placeholder="name" required />
+            <input type="submit" value="add">
+            <input type="button" value="cancel" ng-click="standings.addingPlayer=!standings.addingPlayer" />
+        </form>
+    </div>
 </div>

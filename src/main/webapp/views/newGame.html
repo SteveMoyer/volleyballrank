@@ -1,17 +1,19 @@
-<div ng-show="addingGame">
-    Add a new game
-    <form ng-submit="addGame()" >
+<input type="button" value="Add a new game" ng-hide="newGame.addingGame"
+    ng-click="newGame.addingGame=!newGame.addingGame"/>
+<div ng-show="newGame.addingGame">
+    Add a new game.
+    <form ng-submit="newGame.addGame()" >
         <table>
-            <tr><td><select ng-model="newGame.playerA" ng-options="player.name for player in players" required></select></td>
+            <tr><td><select ng-model="newGame.game.playerA" ng-options="player.name for player in newGame.players" required></select></td>
                 <td rowspan=3> VS </td>
-                <td><select ng-model="newGame.playerC" ng-options="player.name for player in players" required></select></td>
+                <td><select ng-model="newGame.game.playerC" ng-options="player.name for player in newGame.players" required></select></td>
             </tr>
-            <tr><td><select ng-model="newGame.playerB" ng-options="player.name for player in players" required></select></td>
-                <td><select ng-model="newGame.playerD" ng-options="player.name for player in players" required></select></td></tr>
-            <tr><td>Score: <input type="text" size="2" ng-model="newGame.teamABScore" required/></td>
-                <td>Score: <input type="text" size="2" ng-model="newGame.teamCDScore" required/></td></tr>
+            <tr><td><select ng-model="newGame.game.playerB" ng-options="player.name for player in newGame.players" required></select></td>
+                <td><select ng-model="newGame.game.playerD" ng-options="player.name for player in newGame.players" required></select></td></tr>
+            <tr><td>Score: <input type="text" size="2" ng-model="newGame.game.teamABScore" required/></td>
+                <td>Score: <input type="text" size="2" ng-model="newGame.game.teamCDScore" required/></td></tr>
             <tr><td><input type="submit" value="Add Game" />
-                    <input type="button" ngclick="addingGame=!addingGame" value="Cancel" />
+                    <input type="button" ng-click="newGame.addingGame =! newGame.addingGame" value="Cancel" />
             </td></tr>
         </table>
     </form>

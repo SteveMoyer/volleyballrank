@@ -1,6 +1,5 @@
 'use strict';
 
-/* jasmine specs for routes go here */
 describe('Volleyball controllers', function() {
 
     beforeEach(module('vbRank'));
@@ -30,10 +29,10 @@ describe('Volleyball controllers', function() {
         });
 
         it('should populate players', function() {
-            controller('StandingsCtrl', {$scope:scope, PlayerService:playerService});
+            controller('StandingsCtrl as standings', {$scope:scope, PlayerService:playerService});
             rootScope.$apply();
 
-            expect(scope.players).toBe(playersFixture);
+            expect(scope.standings.players).toBe(playersFixture);
         });
 
     });
@@ -41,19 +40,19 @@ describe('Volleyball controllers', function() {
     describe('Profile Controller', function() {
         var playerFixture = {name:"anon 1"};
         var deferred;
-
+        var ctrl;
         beforeEach(function() {
             deferred = q.defer();
             deferred.resolve(playerFixture);
-            controller('ProfileCtrl', {$scope:scope, PlayerService:playerService});
+            controller('ProfileCtrl as profile', {$scope:scope, PlayerService:playerService});
         });
 
         it('should populate player', function() {
             spyOn(playerService, 'getPlayer').andReturn(deferred.promise);
-            scope.getPlayer();
+            scope.profile.getPlayer();
             rootScope.$apply();
 
-            expect(scope.player).toBe(playerFixture);
+            expect(scope.profile.player).toBe(playerFixture);
         });
 
     });

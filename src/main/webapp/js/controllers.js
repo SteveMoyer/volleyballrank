@@ -3,42 +3,46 @@ var vbRankControllers = angular.module('vbRankControllers', ['vbRankServices']);
 
 vbRankControllers.controller('StandingsCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {
-            $scope.getPlayers = function(){ PlayerService.getPlayers().then(function(players){
-                $scope.players = players;
+            var that = this;
+            this.getPlayers = function(){ PlayerService.getPlayers().then(function(players){
+                that.players = players;
             });
             };
-            $scope.getPlayers();
-            $scope.insertPlayer = function() {
+            this.getPlayers();
+            this.insertPlayer = function() {
                 var newPlayer = {};
-                newPlayer.emailAddress = $scope.emailAddress;
-                newPlayer.name = $scope.name;
+                newPlayer.emailAddress = this.emailAddress;
+                newPlayer.name = this.name;
                 PlayerService.insertPlayer(newPlayer).then(function() {
-                    $scope.emailAddress = null;
-                    $scope.name = null;
-                    $scope.getPlayers();
+                    that.emailAddress = null;
+                    that.name = null;
+                    that.getPlayers();
                 });
             }
         }]);
 
 vbRankControllers.controller('ProfileCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {
-            $scope.getPlayer = function(playerId) {
+            var that = this;
+            $scope.ctrl=that;
+            this.getPlayer = function(playerId) {
                 PlayerService.getPlayer(playerId).then(function(player){
-                    $scope.player = player;
+                    that.player = player;
                 });
             };
         }]);
 
 vbRankControllers.controller('NewGameCtrl',
         ['$scope', 'GameService', 'PlayerService', function($scope, GameService, PlayerService) {
-            $scope.addGame = function() {
-                GameService.addGame($scope.newGame).then(function(game){
+            var that =this;
+            that.addGame = function() {
+                GameService.addGame(that.game).then(function(game){
                 });
             };
-            $scope.addingGame=false;
+            that.addingGame = false;
             PlayerService.getPlayers().then(function(playerList){
-                    $scope.players = playerList;
-                    $scope.newGame={};
-                    $scope.addingGame=true;
+                    that.players = playerList;
+                    that.game={};
+                    that.addingGame=false;
             });
         }]);
