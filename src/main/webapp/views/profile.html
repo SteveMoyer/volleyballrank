@@ -2,3 +2,24 @@
     <div>Name: {{profile.player.name}}</div>
     <div>Record: ({{profile.player.wins}}-{{profile.player.losses}})</div>
 </div>
+<div ng-show="profile.games">
+<table class="table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date</th><th>Player A</th><th>Player B</th><th>Player C</th><th>Player D</th><th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="game in profile.games">
+                <td>i{{game.gameDate | date:'medium'}}</td>
+                <td><a href="#players/{{game.playerA.id}}">{{game.playerA.name}}</a></td>
+                <td><a href="#players/{{game.playerB.id}}">{{game.playerB.name}}</a></td>
+                <td><a href="#players/{{game.playerC.id}}">{{game.playerC.name}}</a></td>
+                <td><a href="#players/{{game.playerD.id}}">{{game.playerD.name}}</a></td>
+                <td>({{game.teamABScore}}-{{game.teamCDScore}})</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+
+</div>

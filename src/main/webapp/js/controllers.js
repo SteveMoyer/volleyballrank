@@ -22,12 +22,17 @@ vbRankControllers.controller('StandingsCtrl',
         }]);
 
 vbRankControllers.controller('ProfileCtrl',
-        ['$scope', 'PlayerService', function($scope, PlayerService) {
+        ['$scope', 'PlayerService','GameService', function($scope, PlayerService, GameService) {
             var that = this;
             $scope.ctrl=that;
             this.getPlayer = function(playerId) {
                 PlayerService.getPlayer(playerId).then(function(player){
                     that.player = player;
+                });
+            };
+            this.getGames = function(playerId) {
+                GameService.getGamesForPlayer(playerId).then(function(games){
+                    that.games = games;
                 });
             };
         }]);
@@ -36,11 +41,10 @@ vbRankControllers.controller('NewGameCtrl',
         ['$scope', 'GameService', 'PlayerService', function($scope, GameService, PlayerService) {
             var that =this;
             that.addGame = function() {
-                GameService.addGame(that.game).then(function(game){
-                });
+                GameService.addGame(that.game).then(function(game){});
             };
             that.addingGame = false;
-            PlayerService.getPlayers().then(function(playerList){
+            PlayerService.getPlayerRefs().then(function(playerList){
                     that.players = playerList;
                     that.game={};
                     that.addingGame=false;

@@ -18,6 +18,7 @@ vbApp.directive('vbrProfile', function(){
         controllerAs: 'profile',
         link: function(scope, elem, attrs) {
             scope.profile.getPlayer(attrs.playerId);
+            scope.profile.getGames(attrs.playerId);
         }
     }
 });

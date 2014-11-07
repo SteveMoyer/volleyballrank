@@ -44,6 +44,11 @@ public class PlayerService {
         q.setOrdering("winningPercentage desc, wins desc, losses");
         return (List<Player>) q.execute();
     }
+    @GET @Path("refs") public List<PlayerRef> getPlayerRefs() {
+        Query q = pm.newQuery(PlayerRef.class);
+        q.setOrdering("name");
+        return (List<PlayerRef>) q.execute();
+    }
 
     @POST public Player insertPlayer(Player player) {
         Player updatedPlayer = pm.makePersistent(player);
