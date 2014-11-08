@@ -31,10 +31,24 @@ vbApp.directive('vbrNewGame', function(){
         templateUrl: 'views/newGame.html',
     }
 });
+vbApp.directive('vbrEditProfile', function(){
+    return { restrict: 'E',
+        scope: {},
+        controller: 'EditProfileCtrl',
+        controllerAs: 'editProfile',
+        templateUrl: 'views/editProfile.html',
+        link: function(scope, elem, attrs) {
+            scope.editProfile.getMe();
+        }
+
+    }
+});
+
 
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/standings', { template: '<vbr-standings></vbr-standings>' }).
+    when('/profile/me', { template: '<vbr-edit-profile></vbr-edit-profile>' }).
     when('/profile', { template: '<vbr-profile></vbr-profile>' }).
     when('/players/:playerId', { template: function($routeParams){
         return '<vbr-profile ng-attr-player-id="' + $routeParams.playerId + '"></vbr-profile>'}}).

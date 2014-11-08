@@ -36,11 +36,38 @@ describe('Volleyball controllers', function() {
         });
 
     });
+    describe('Edit Profile Controller', function() {
+        var playerFixture = {id:5, name:"anon 1"};
+        var updatedFixture = {id:5, name:"anon 2"};
+        var deferredGet;
 
+        beforeEach(function() {
+            deferredGet = q.defer();
+            deferredGet.resolve(playerFixture);
+            controller('EditProfileCtrl as editProfile', {$scope:scope, PlayerService:playerService});
+        });
+
+        it('should retrieve my profile', function() {
+            spyOn(playerService, 'getPlayer').andReturn(deferredGet.promise);
+            scope.editProfile.getMe();
+            rootScope.$apply();
+            expect(scope.editProfile.player).toBe(playerFixture);
+        });
+
+        it('should update my profile', function() {
+            var deferredPost = q.defer();
+            deferredPost.resolve(updatedFixture);
+            spyOn(playerService, 'getPlayer').andReturn(deferredGet.promise);
+            spyOn(playerService, 'updatePlayer').andReturn(deferredPost.promise);
+            scope.editProfile.updatePlayer(playerFixture);
+            rootScope.$apply();
+            expect(scope.editProfile.player).toBe(updatedFixture);
+
+        });
+    });
     describe('Profile Controller', function() {
         var playerFixture = {name:"anon 1"};
         var deferred;
-        var ctrl;
         beforeEach(function() {
             deferred = q.defer();
             deferred.resolve(playerFixture);

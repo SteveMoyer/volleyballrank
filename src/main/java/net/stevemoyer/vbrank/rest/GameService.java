@@ -39,7 +39,8 @@ public class GameService {
         games.addAll(getGamesWithPlayerForSlot("playerDId", playerId));
         Collections.sort(games, new Comparator<Game>() {
             public int compare( Game a, Game b) {
-                return a.getGameDate().compareTo(b.getGameDate());
+                //sort most recent first
+                return b.getGameDate().compareTo(a.getGameDate());
             }
 
         });

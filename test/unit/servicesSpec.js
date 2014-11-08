@@ -18,6 +18,18 @@ describe('Volleyball services', function() {
             deferred.resolve({});
         }));
 
+        describe('updatePlayer', function() {
+            var playerFixture = {name:"anon 1", id:5};
+
+            it('should post http update to player', function() {
+                spyOn(http, 'post').andReturn({success: function() {}});
+
+                playerService.updatePlayer(playerFixture);
+                rootScope.$apply();
+
+                expect(http.post).toHaveBeenCalledWith('/rest/players/5', playerFixture);
+            });
+        });
         describe('getPlayer', function() {
             it('should call get on me if not given a playerId', function() {
                 spyOn(http, 'get').andReturn({success: function(){}});

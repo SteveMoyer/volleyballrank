@@ -1,6 +1,5 @@
 'use strict';
 var vbRankControllers = angular.module('vbRankControllers', ['vbRankServices']);
-
 vbRankControllers.controller('StandingsCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {
             var that = this;
@@ -19,6 +18,21 @@ vbRankControllers.controller('StandingsCtrl',
                     that.getPlayers();
                 });
             }
+        }]);
+
+vbRankControllers.controller('EditProfileCtrl',
+        ['$scope', 'PlayerService', function($scope, PlayerService) {
+            var that = this;
+            this.getMe = function() {
+                PlayerService.getPlayer().then(function(player){
+                    that.player = player;
+                });
+            };
+            this.updatePlayer = function() {
+                PlayerService.updatePlayer(that.player).then(function(player){
+                    that.player = player;
+                });
+            };
         }]);
 
 vbRankControllers.controller('ProfileCtrl',

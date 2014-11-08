@@ -47,6 +47,16 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
 
         return q.promise;
     };
+    this.updatePlayer = function(updatedPlayer) {
+        var q = $q.defer();
+        var url = '/rest/players/' + updatedPlayer.id;
+
+        $http.post(url, updatedPlayer).success(function(data) {
+            q.resolve(data);
+        });
+
+        return q.promise;
+    }
 }]);
 vbApp.service('GameService', ['$http', '$q', function($http, $q) {
     this.addGame = function(newGame) {
