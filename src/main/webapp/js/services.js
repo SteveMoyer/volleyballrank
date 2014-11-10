@@ -1,4 +1,5 @@
 'use strict';
+
 var vbApp = angular.module('vbRankServices', []);
 vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
     this.getPlayers = function() {
@@ -15,10 +16,10 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
         var q = $q.defer();
         var url;
 
-        if(playerId == null){
-            url = '/rest/players/me';
-        } else {
+        if(playerId){
             url = '/rest/players/' + playerId;
+        } else {
+            url = '/rest/players/me';
         }
 
         $http.get(url).success(function(data) {
@@ -36,7 +37,6 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
         return q.promise;
     };
 
-    
     this.insertPlayer = function(newPlayer) {
         var q = $q.defer();
         var url = '/rest/players';
@@ -58,6 +58,7 @@ vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
         return q.promise;
     }
 }]);
+
 vbApp.service('GameService', ['$http', '$q', function($http, $q) {
     this.addGame = function(newGame) {
         var deferred = $q.defer();

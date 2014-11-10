@@ -35,6 +35,27 @@ vbRankControllers.controller('EditProfileCtrl',
             };
         }]);
 
+vbRankControllers.controller('TabsCtrl',
+        ['$scope', '$location', function($scope, $location) {
+            var that = this;
+            this.tabs = [ { link : '#/standings', label : 'Standings' },
+            { link : '#/games/new', label : 'Add a game' },
+            { link : '#/profile/me', label : 'Profile' }];
+
+            this.selectedTab = this.tabs[0];
+            this.setSelectedTab = function(tab) {
+                that.selectedTab = tab;
+            };
+
+            this.tabClass = function(tab) {
+                if (that.selectedTab == tab) {
+                    return "active";
+                } else {
+                    return "";
+                }
+            };
+        }]);
+
 vbRankControllers.controller('ProfileCtrl',
         ['$scope', 'PlayerService','GameService', function($scope, PlayerService, GameService) {
             var that = this;
@@ -46,6 +67,13 @@ vbRankControllers.controller('ProfileCtrl',
             };
             this.getGames = function(playerId) {
                 GameService.getGamesForPlayer(playerId).then(function(games){
+                    games.forEach(function(game) {
+                        if(playerId == game.playerA.id || playerId == game.playerB.id){
+                            game.win = game.teamABScore > game.teamCDScore;
+                        } else {
+                            game.win = game.teamABScore < game.teamCDScore;
+                        }
+                    });
                     that.games = games;
                 });
             };
@@ -59,8 +87,8 @@ vbRankControllers.controller('NewGameCtrl',
             };
             that.addingGame = false;
             PlayerService.getPlayerRefs().then(function(playerList){
-                    that.players = playerList;
-                    that.game={};
-                    that.addingGame=false;
+                that.players = playerList;
+                that.game={};
+                that.addingGame=true;
             });
         }]);

@@ -5,16 +5,18 @@ describe('Volleyball controllers', function() {
     beforeEach(module('vbRank'));
 
     var playerService;
+    var gameService;
     var scope;
     var rootScope;
     var q;
     var controller;
 
-    beforeEach(inject(function($rootScope, $controller, $q, PlayerService) {
+    beforeEach(inject(function($rootScope, $controller, $q, PlayerService, GameService) {
         rootScope = $rootScope;
         controller = $controller;
         scope = rootScope.$new();
         playerService = PlayerService;
+        gameService = GameService;
         q = $q;
     }));
 
@@ -69,17 +71,58 @@ describe('Volleyball controllers', function() {
         var playerFixture = {name:"anon 1"};
         var deferred;
         beforeEach(function() {
-            deferred = q.defer();
-            deferred.resolve(playerFixture);
-            controller('ProfileCtrl as profile', {$scope:scope, PlayerService:playerService});
+            controller('ProfileCtrl as profile', {$scope:scope, PlayerService:playerService,
+                GameService: gameService});
         });
+        describe('getPlayer', function() {
+            beforeEach(function() {
+                deferred = q.defer();
+                deferred.resolve(playerFixture);
+            });
+            it('should populate player', function() {
+                spyOn(playerService, 'getPlayer').andReturn(deferred.promise);
+                scope.profile.getPlayer();
+                rootScope.$apply();
 
-        it('should populate player', function() {
-            spyOn(playerService, 'getPlayer').andReturn(deferred.promise);
-            scope.profile.getPlayer();
-            rootScope.$apply();
+                expect(scope.profile.player).toBe(playerFixture);
+            });
+        });
+        describe('getGamesForPlayer', function() {
+            var gameFixture;
+            beforeEach(function() {
+                deferred = q.defer();
+            });
+            it('should populate games', function() {
+                gameFixture =[ {id:12345, playerA: {id:1}, playerB: {id:2},
+                    playerC: {id:3}, playerD: {id:4}, teamABScore: 21, teamCDScore:19 }];
 
-            expect(scope.profile.player).toBe(playerFixture);
+                deferred.resolve(gameFixture);
+                spyOn(gameService, 'getGamesForPlayer').andReturn(deferred.promise);
+                scope.profile.getGames(1);
+                rootScope.$apply();
+
+                expect(scope.profile.games).toBe(gameFixture);
+            });
+          it('should calculate wins', function() {
+              gameFixture =[
+              {id:12345, playerA: {id:1}, playerB: {id:2}, playerC: {id:3}, playerD: {id:4}, teamABScore: 21, teamCDScore:19 },
+              {id:12346, playerA: {id:3}, playerB: {id:2}, playerC: {id:1}, playerD: {id:4}, teamABScore: 21, teamCDScore:19 },
+              {id:12347, playerA: {id:1}, playerB: {id:2}, playerC: {id:3}, playerD: {id:4}, teamABScore: 19, teamCDScore:21 },
+              {id:12348, playerA: {id:3}, playerB: {id:2}, playerC: {id:1}, playerD: {id:4}, teamABScore: 19, teamCDScore:21 }
+              ];
+
+              deferred.resolve(gameFixture);
+                spyOn(gameService, 'getGamesForPlayer').andReturn(deferred.promise);
+                scope.profile.getGames(1);
+                rootScope.$apply();
+
+                expect(gameFixture[0].win).toBe(true);
+                expect(gameFixture[1].win).toBe(false);
+                expect(gameFixture[2].win).toBe(false);
+                expect(gameFixture[3].win).toBe(true);
+            });
+
+
         });
 
     });

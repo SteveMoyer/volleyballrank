@@ -8,6 +8,10 @@ describe('Volleyball routes', function() {
     it('should map routes to profile', inject(function($route) {
         expect($route.routes['/profile'].template).toEqual('<vbr-profile></vbr-profile>');
     }));
+    it('should map to me to new game', inject(function($route) {
+        expect($route.routes['/games/new'].template).toEqual('<vbr-new-game></vbr-new-game>');
+    }));
+
 
     it('should map to me to edit  profile', inject(function($route) {
         expect($route.routes['/profile/me'].template).toEqual('<vbr-edit-profile></vbr-edit-profile>');

@@ -18,15 +18,16 @@
         <script src="js/services.js"></script>
     </head>
     <body>
-        <ul class="menu">
-            <li><a href="#/standings">Standings</a></li>
-            <li><a href="#/profile/me">My Profile</a></li>
-            <li><a href="#/admin">Admin</a></li>
-        </ul>
+        <div ><ul class="nav nav-tabs" ng-controller="TabsCtrl as tabCtrl" >
+            <li ng-class="tabCtrl.tabClass(tab)" ng-repeat="tab in tabCtrl.tabs" tab="tab">
+                <a href="{{tab.link}}" ng-click="tabCtrl.setSelectedTab(tab)">{{tab.label}}</a>
+            </li>
+        </ul></div>
+        
+
         <div class="view-container">
             <div ng-view > </div>
         </div>
-        
-        <vbr-new-game></vbr-new-game>
+
     </body>
 </html>

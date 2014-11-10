@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 @Path("/players") @Produces(MediaType.APPLICATION_JSON)
 public class PlayerService {
     PersistenceManager pm = PMF.getInstance().getPersistenceManager();
-private static final Logger log = Logger.getLogger(PlayerService.class.getName());
- 
+    private static final Logger log = Logger.getLogger(PlayerService.class.getName());
+
     @GET @Path("me") public Player getMe() {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
@@ -31,7 +31,6 @@ private static final Logger log = Logger.getLogger(PlayerService.class.getName()
         if(!players.isEmpty()) {
             return players.get(0);
         }
-
         Player newMe = new Player();
         newMe.setEmailAddress(user.getEmail());
         newMe.setName(user.getNickname());
@@ -68,5 +67,6 @@ private static final Logger log = Logger.getLogger(PlayerService.class.getName()
         PlayerRef newPlayerRef = new PlayerRef(updatedPlayer.getId(),updatedPlayer.getName());
         pm.makePersistent(newPlayerRef);
         return updatedPlayer;
+
     }
 }

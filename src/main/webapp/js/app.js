@@ -47,6 +47,7 @@ vbApp.directive('vbrEditProfile', function(){
 
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
+    when('/games/new', { template: '<vbr-new-game></vbr-new-game>' }).
     when('/standings', { template: '<vbr-standings></vbr-standings>' }).
     when('/profile/me', { template: '<vbr-edit-profile></vbr-edit-profile>' }).
     when('/profile', { template: '<vbr-profile></vbr-profile>' }).
