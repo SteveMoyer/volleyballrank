@@ -36,13 +36,22 @@ vbRankControllers.controller('EditProfileCtrl',
         }]);
 
 vbRankControllers.controller('TabsCtrl',
-        ['$scope', '$location', function($scope, $location) {
+        ['$scope', '$location','$rootScope', function($scope, $location,$rootScope) {
             var that = this;
             this.tabs = [ { link : '#/standings', label : 'Standings' },
             { link : '#/games/new', label : 'Add a game' },
             { link : '#/profile/me', label : 'Profile' }];
 
-            this.selectedTab = this.tabs[0];
+            $rootScope.$on('$viewContentLoaded', function(event,data) {
+                $rootScope.$broadcast('tabChanged',data);
+                $rootScope.$apply();
+            });
+
+            $scope.$on('tabChanged', function(event, data) {
+                that.setSelectedTab(that.tabs.filter(function(element) { 
+                    return element.link === '#' +$location.path(); })[0]);
+            });
+
             this.setSelectedTab = function(tab) {
                 that.selectedTab = tab;
             };
