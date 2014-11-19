@@ -1,5 +1,9 @@
 'use strict';
-var vbApp = angular.module('vbRank', ['ngRoute', 'vbRankControllers', 'vbRankServices']);
+goog.provide("net.stevemoyer.vbrank.app");
+goog.require("net.stevemoyer.vbrank.controllers");
+var vbApp = angular.module('net.stevemoyer.vbrank.app', ['ngRoute', 
+        net.stevemoyer.vbrank.controllers.name]);
+net.stevemoyer.vbrank.app=vbApp;
 
 vbApp.directive('vbrStandings', function(){
     return {

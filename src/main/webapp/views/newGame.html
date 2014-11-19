@@ -1,7 +1,7 @@
 <div ng-show="newGame.addingGame">
     Add a new game.
     <form ng-submit="newGame.addGame()" >
-        <table>
+        <table class="std-table">
             <tr><td><select ng-model="newGame.game.playerA" ng-options="player.name for player in newGame.players" required></select></td>
                 <td rowspan=3> VS </td>
                 <td><select ng-model="newGame.game.playerC" ng-options="player.name for player in newGame.players" required></select></td>
@@ -11,8 +11,8 @@
             <tr><td>Score: <input type="text" size="2" ng-model="newGame.game.teamABScore" required/></td>
                 <td>Score: <input type="text" size="2" ng-model="newGame.game.teamCDScore" required/></td></tr>
             <tr><td><input type="submit" value="Add Game" />
-                    <input type="button" ng-click="newGame.addingGame =! newGame.addingGame" value="Cancel" />
-            </td></tr>
+                    
+                </td><td></td><td><input type="button" ng-click="newGame.addingGame =! newGame.addingGame" value="Cancel" /></td></tr>
         </table>
     </form>
 </div>

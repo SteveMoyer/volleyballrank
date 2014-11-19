@@ -1,6 +1,8 @@
 'use strict';
+goog.provide('net.stevemoyer.vbrank.services')
 
-var vbApp = angular.module('vbRankServices', []);
+var vbApp = angular.module('net.stevemoyer.vbrank.services', []);
+net.stevemoyer.vbrank.services=vbApp;
 vbApp.service('PlayerService', ['$http', '$q', function($http, $q) {
     this.getPlayers = function() {
         var q = $q.defer();

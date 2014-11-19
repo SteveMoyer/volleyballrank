@@ -1,5 +1,10 @@
 'use strict';
-var vbRankControllers = angular.module('vbRankControllers', ['vbRankServices']);
+goog.provide('net.stevemoyer.vbrank.controllers');
+goog.require('net.stevemoyer.vbrank.services');
+var vbRankControllers = angular.module('net.stevemoyer.vbrank.controllers', 
+        [net.stevemoyer.vbrank.services.name]);
+net.stevemoyer.vbrank.controllers=vbRankControllers;
+
 vbRankControllers.controller('StandingsCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {
             var that = this;
@@ -44,7 +49,6 @@ vbRankControllers.controller('TabsCtrl',
 
             $rootScope.$on('$viewContentLoaded', function(event,data) {
                 $rootScope.$broadcast('tabChanged',data);
-                $rootScope.$apply();
             });
 
             $scope.$on('tabChanged', function(event, data) {

@@ -1,14 +1,19 @@
 .std-table {
     border-spacing: 2px;
-    border: 2px solid black
+    border: 2px solid black;
 }
 .std-table td {
+    padding:5px;
+}
+.std-table th {
+    padding:5px;
+}
+.cell-bordered-table td {
     border: 2px solid black;
     padding: 5px;
 }
-.std-table th {
+.cell-bordered-table th {
     border: 2px solid black;
-    padding:5px;
 }
 .win {
     background-color:lightgreen !important;
@@ -16,6 +21,4 @@
 .loss {
       background-color:#FF6600 !important;
 }
-.std-table tbody tr:nth-child(odd) {
-       background-color: #ccc;
-   }
+
