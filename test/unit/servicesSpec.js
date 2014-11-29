@@ -1,4 +1,5 @@
 'use strict';
+goog.require('net.stevemoyer.vbrank.services');
 describe('Volleyball services', function() {
     var http;
     var playerService;
@@ -6,7 +7,7 @@ describe('Volleyball services', function() {
     var deferred;
     var rootScope;
 
-    beforeEach(module('vbRankServices'));
+    beforeEach(module('net.stevemoyer.vbrank.services'));
 
     describe('PlayerService', function(){
         beforeEach(inject(function($rootScope, $http, $q, PlayerService) {

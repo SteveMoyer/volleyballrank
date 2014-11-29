@@ -20,7 +20,7 @@
         "prestart": "npm install",
         "start": "http-server src/main/webapp -a 0.0.0.0 -p 8000",
 
-        "pretest": "npm install",
+        "pretest": "npm install;./runclosure.sh",
         "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
         "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
 

@@ -1,9 +1,8 @@
 'use strict';
-
+goog.require('net.stevemoyer.vbrank.app');
 describe('Volleyball routes', function() {
 
-    beforeEach(module('vbRank'));
-    beforeEach(module('vbRankServices'));
+    beforeEach(module('net.stevemoyer.vbrank.app'));
 
     it('should map routes to profile', inject(function($route) {
         expect($route.routes['/profile'].template).toEqual('<vbr-profile></vbr-profile>');

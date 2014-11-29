@@ -9,7 +9,10 @@ module.exports = function(config){
                 'bower_components/angular-resource/angular-resource.js',
                 'bower_components/angular-animate/angular-animate.js',
                 'bower_components/angular-mocks/angular-mocks.js',
-                'js/**/*.js',
+                'bower_components/closure-libraray/closure/goog/base.js',
+                'bower_components/closure-libraray/closure/goog/deps.js',
+                'deps.js',
+                {pattern: 'js/**/*.js', watched: true, included: false, served: true},
                 '../../../test/unit/**/*.js'
                                         ],
                            autoWatch : true,

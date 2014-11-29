@@ -1,8 +1,8 @@
 'use strict';
-
+goog.require('net.stevemoyer.vbrank.controllers');
 describe('Volleyball controllers', function() {
 
-    beforeEach(module('vbRank'));
+    beforeEach(module('net.stevemoyer.vbrank.controllers'));
 
     var playerService;
     var gameService;
