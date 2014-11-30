@@ -12,7 +12,6 @@ vbRankControllers.controller('StandingsCtrl',
                 that.players = players;
             });
             };
-            this.getPlayers();
             this.insertPlayer = function() {
                 var newPlayer = {};
                 newPlayer.emailAddress = this.emailAddress;

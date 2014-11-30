@@ -10,7 +10,10 @@ vbApp.directive('vbrStandings', function(){
         restrict: 'E',
         controller: 'StandingsCtrl',
         controllerAs: 'standings',
-        templateUrl: 'views/standings.html'
+        templateUrl: 'views/standings.html',
+        link: function(scope, elem, attrs) {
+            scope.standings.getPlayers();
+        }
     };
 });
 

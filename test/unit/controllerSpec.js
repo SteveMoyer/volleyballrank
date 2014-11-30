@@ -30,12 +30,6 @@ describe('Volleyball controllers', function() {
             deferred.resolve(playersFixture);
         });
 
-        it('should populate players', function() {
-            controller('StandingsCtrl as standings', {$scope:scope, PlayerService:playerService});
-            rootScope.$apply();
-
-            expect(scope.standings.players).toBe(playersFixture);
-        });
         it('should insert a new player', function() {
             controller('StandingsCtrl as standings', {$scope:scope, PlayerService:playerService});
             rootScope.$apply();
@@ -48,6 +42,7 @@ describe('Volleyball controllers', function() {
             rootScope.$apply();
             expect(scope.standings.emailAddress).toBe(null);
             expect(scope.standings.name).toBe(null);
+            expect(scope.standings.players).toBe(playersFixture);
             });
 });
 
