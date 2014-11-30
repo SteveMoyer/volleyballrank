@@ -81,5 +81,4 @@ vbApp.service('GameService', ['$http', '$q', function($http, $q) {
         return q.promise;
     };
 
-
 }]);

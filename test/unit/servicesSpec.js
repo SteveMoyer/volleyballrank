@@ -3,6 +3,7 @@ goog.require('net.stevemoyer.vbrank.services');
 describe('Volleyball services', function() {
     var http;
     var playerService;
+    var gameService;
     var q;
     var deferred;
     var rootScope;
@@ -49,9 +50,66 @@ describe('Volleyball services', function() {
                 expect(http.get).toHaveBeenCalledWith('/rest/players/player2');
             });
         });
+        describe('getPlayers', function() {
+            it('should call get for players', function() {
+                spyOn(http,'get').andReturn( {success: function(){}});
+                playerService.getPlayers();
+                rootScope.$apply();
+                expect(http.get).toHaveBeenCalledWith('/rest/players');
+            });
+        });
+        describe('getPlayerRefs', function() {
+            it('should call get for player refs', function() {
+                spyOn(http,'get').andReturn( {success: function(){}});
+                playerService.getPlayerRefs();
+                rootScope.$apply();
+                expect(http.get).toHaveBeenCalledWith('/rest/players/refs');
+            });
+        });
+
         describe('insertPlayer', function() {
+            it('should call post with player', function() {
+                spyOn(http,'post').andReturn( {success: function(){}});
+                var newPlayer= {};
+                playerService.insertPlayer(newPlayer);
+                rootScope.$apply();
+                expect(http.post).toHaveBeenCalledWith('/rest/players',newPlayer);
+            });
+               
         });
     });
-    /// TODO: Test GameService
+    describe('GameService', function(){
+        beforeEach(inject(function($rootScope, $http, $q, GameService) {
+            http = $http;
+            rootScope = $rootScope;
+            q = $q
+            gameService = GameService;
+            deferred = q.defer();
+            deferred.resolve({});
+        }));
+        describe('addGame', function(){
+            it('should call post with game',function() {
+                spyOn(http,'post').andReturn( {success: function(){}});
+                var newGame= {};
+                gameService.addGame(newGame);
+                rootScope.$apply();
+                expect(http.post).toHaveBeenCalledWith('/rest/games',newGame);
+
+
+            });
+        });
+        describe('getGamesForPlayer', function(){
+            it('should call get with playerId',function() {
+                spyOn(http,'get').andReturn( {success: function(){}});
+                gameService.getGamesForPlayer(1);
+                rootScope.$apply();
+                expect(http.get).toHaveBeenCalledWith('/rest/games/latest/1');
+
+
+            });
+        });
+    });
+
+
 });
 

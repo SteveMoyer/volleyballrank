@@ -36,8 +36,21 @@ describe('Volleyball controllers', function() {
 
             expect(scope.standings.players).toBe(playersFixture);
         });
+        it('should insert a new player', function() {
+            controller('StandingsCtrl as standings', {$scope:scope, PlayerService:playerService});
+            rootScope.$apply();
+            var insertDeferred = q.defer();
+            insertDeferred.resolve({});
+            scope.standings.emailAddress = 'b@c.com';
+            scope.standings.name = 'new player';
+            spyOn(playerService,'insertPlayer').andReturn(insertDeferred.promise);
+            scope.standings.insertPlayer();
+            rootScope.$apply();
+            expect(scope.standings.emailAddress).toBe(null);
+            expect(scope.standings.name).toBe(null);
+            });
+});
 
-    });
     describe('Edit Profile Controller', function() {
         var playerFixture = {id:5, name:"anon 1"};
         var updatedFixture = {id:5, name:"anon 2"};
