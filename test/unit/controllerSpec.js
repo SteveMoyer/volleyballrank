@@ -30,9 +30,8 @@ describe('Volleyball controllers', function() {
             deferred.resolve(playersFixture);
         });
 
-        it('should insert a new player', function() {
+        it('should insert a new player and clear fields', function() {
             controller('StandingsCtrl as standings', {$scope:scope, PlayerService:playerService});
-            rootScope.$apply();
             var insertDeferred = q.defer();
             insertDeferred.resolve({});
             scope.standings.emailAddress = 'b@c.com';
