@@ -5,40 +5,6 @@ var vbRankControllers = angular.module('net.stevemoyer.vbrank.controllers',
         [net.stevemoyer.vbrank.services.name]);
 net.stevemoyer.vbrank.controllers=vbRankControllers;
 
-vbRankControllers.controller('StandingsCtrl',
-        ['$scope', 'PlayerService', function($scope, PlayerService) {
-            var that = this;
-            this.getPlayers = function(){ PlayerService.getPlayers().then(function(players){
-                that.players = players;
-            });
-            };
-            this.insertPlayer = function() {
-                var newPlayer = {};
-                newPlayer.emailAddress = this.emailAddress;
-                newPlayer.name = this.name;
-                PlayerService.insertPlayer(newPlayer).then(function() {
-                    that.emailAddress = null;
-                    that.name = null;
-                    that.getPlayers();
-                });
-            }
-        }]);
-
-vbRankControllers.controller('EditProfileCtrl',
-        ['$scope', 'PlayerService', function($scope, PlayerService) {
-            var that = this;
-            this.getMe = function() {
-                PlayerService.getPlayer().then(function(player){
-                    that.player = player;
-                });
-            };
-            this.updatePlayer = function() {
-                PlayerService.updatePlayer(that.player).then(function(player){
-                    that.player = player;
-                });
-            };
-        }]);
-
 vbRankControllers.controller('TabsCtrl',
         ['$scope', '$location','$rootScope', function($scope, $location,$rootScope) {
             var that = this;
@@ -51,7 +17,7 @@ vbRankControllers.controller('TabsCtrl',
             });
 
             $scope.$on('tabChanged', function(event, data) {
-                that.setSelectedTab(that.tabs.filter(function(element) { 
+                that.setSelectedTab(that.tabs.filter(function(element) {
                     return element.link === '#' +$location.path(); })[0]);
             });
 
@@ -68,39 +34,3 @@ vbRankControllers.controller('TabsCtrl',
             };
         }]);
 
-vbRankControllers.controller('ProfileCtrl',
-        ['$scope', 'PlayerService','GameService', function($scope, PlayerService, GameService) {
-            var that = this;
-            $scope.ctrl=that;
-            this.getPlayer = function(playerId) {
-                PlayerService.getPlayer(playerId).then(function(player){
-                    that.player = player;
-                });
-            };
-            this.getGames = function(playerId) {
-                GameService.getGamesForPlayer(playerId).then(function(games){
-                    games.forEach(function(game) {
-                        if(playerId == game.playerA.id || playerId == game.playerB.id){
-                            game.win = game.teamABScore > game.teamCDScore;
-                        } else {
-                            game.win = game.teamABScore < game.teamCDScore;
-                        }
-                    });
-                    that.games = games;
-                });
-            };
-        }]);
-
-vbRankControllers.controller('NewGameCtrl',
-        ['$scope', 'GameService', 'PlayerService', function($scope, GameService, PlayerService) {
-            var that =this;
-            that.addGame = function() {
-                GameService.addGame(that.game).then(function(game){});
-            };
-            that.addingGame = false;
-            PlayerService.getPlayerRefs().then(function(playerList){
-                that.players = playerList;
-                that.game={};
-                that.addingGame=true;
-            });
-        }]);

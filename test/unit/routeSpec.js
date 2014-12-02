@@ -7,7 +7,7 @@ describe('Volleyball routes', function() {
     it('should map routes to profile', inject(function($route) {
         expect($route.routes['/profile'].template).toEqual('<vbr-profile></vbr-profile>');
     }));
-    it('should map to me to new game', inject(function($route) {
+    it('should map to /games/new to new game', inject(function($route) {
         expect($route.routes['/games/new'].template).toEqual('<vbr-new-game></vbr-new-game>');
     }));
 

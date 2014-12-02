@@ -12,7 +12,7 @@ module.exports = function(config){
                 'bower_components/closure-libraray/closure/goog/base.js',
                 'bower_components/closure-libraray/closure/goog/deps.js',
                 'deps.js',
-                {pattern: 'js/**/*.js', watched: true, included: false, served: true},
+                {pattern: '!(bower_components)/**/*.js', watched: true, included: false, served: true},
                 '../../../test/unit/**/*.js'
                                         ],
                            autoWatch : true,
@@ -28,7 +28,7 @@ module.exports = function(config){
                                outputFile: 'test_out/unit.xml',
                                suite: 'unit'
                            },
-                           preprocessors : { 'js/**/*.js': 'coverage' },
+                           preprocessors : { '!(bower_components)/**/*.js': 'coverage' },
                                                      reporters : ['progress','coverage'],
                                                      coverageReporter: {
                                                      type : 'html',
