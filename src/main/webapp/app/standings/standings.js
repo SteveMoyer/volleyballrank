@@ -1,8 +1,8 @@
 'use strict';
 goog.provide('vbrank.standings');
-goog.require('net.stevemoyer.vbrank.services');
+goog.require('vbrank.players');
 var vbRankStandings = angular.module('vbrank.standings',
-        [net.stevemoyer.vbrank.services.name]);
+        [vbrank.players.name]);
 vbrank.standings = vbRankStandings;
 
 vbRankStandings.controller('StandingsCtrl',
@@ -27,7 +27,7 @@ vbRankStandings.directive('vbrStandings', function(){
         restrict: 'E',
         controller: 'StandingsCtrl',
         controllerAs: 'standings',
-        templateUrl: 'views/standings.html',
+        templateUrl: 'app/standings/standings.html',
         link: function(scope, elem, attrs) {
             scope.standings.getPlayers();
         }

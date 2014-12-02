@@ -1,8 +1,8 @@
 'use strict';
 goog.provide('vbrank.games');
-goog.require('net.stevemoyer.vbrank.services');
+goog.require('vbrank.players');
 var vbRankGames = angular.module('vbrank.games', 
-        [net.stevemoyer.vbrank.services.name]);
+        [vbrank.players.name]);
 vbrank.games=vbRankGames;
 
 
@@ -19,6 +19,7 @@ vbRankGames.controller('NewGameCtrl',
                 that.addingGame=true;
             });
         }]);
+
 vbRankGames.directive('vbrNewGame', function(){
     return { restrict: 'E',
         scope: {},
@@ -28,4 +29,25 @@ vbRankGames.directive('vbrNewGame', function(){
     }
 });
 
+vbRankGames.service('GameService', ['$http', '$q', function($http, $q) {
+    this.addGame = function(newGame) {
+        var deferred = $q.defer();
+        var url = '/rest/games';
+
+        $http.post(url, newGame).success(function(data) {
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
+    };
+    this.getGamesForPlayer = function(playerId) {
+        var q = $q.defer();
+
+        $http.get('/rest/games/latest/'+playerId).success(function(data) {
+            q.resolve(data);
+        });
+        return q.promise;
+    };
+
+}]);
 

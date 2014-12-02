@@ -1,8 +1,8 @@
 'use strict';
 goog.provide('vbrank.profile');
-goog.require('net.stevemoyer.vbrank.services');
-var vbRankProfile = angular.module('vbrank.profile', 
-        [net.stevemoyer.vbrank.services.name]);
+goog.require('vbrank.players');
+var vbRankProfile = angular.module('vbrank.profile',
+        [vbrank.players.name]);
 vbrank.profile = vbRankProfile;
 vbRankProfile.controller('EditProfileCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {

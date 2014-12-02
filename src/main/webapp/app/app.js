@@ -4,12 +4,15 @@ goog.require("net.stevemoyer.vbrank.controllers");
 goog.require("vbrank.profile");
 goog.require("vbrank.standings");
 goog.require("vbrank.games");
+goog.require("vbrank.players");
+
 var vbApp = angular.module('net.stevemoyer.vbrank.app', 
         ['ngRoute', 
-        net.stevemoyer.vbrank.controllers.name,
+        vbrank.players.name,
         vbrank.profile.name,
         vbrank.standings.name,
-        vbrank.games.name]);
+        vbrank.games.name,
+        net.stevemoyer.vbrank.controllers.name]);
 
 net.stevemoyer.vbrank.app=vbApp;
 

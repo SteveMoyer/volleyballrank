@@ -1,9 +1,10 @@
 'use strict';
-goog.require('net.stevemoyer.vbrank.services');
+goog.require('vbrank.players');
+goog.require('vbrank.games');
 goog.require('vbrank.profile');
 describe('Volleyball player profile', function() {
 
-    beforeEach(module('vbrank.profile'));
+    beforeEach(module('vbrank.profile','vbrank.games'));
 
     var playerService;
     var gameService;

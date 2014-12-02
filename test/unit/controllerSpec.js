@@ -1,22 +1,21 @@
 'use strict';
-goog.require('net.stevemoyer.vbrank.controllers');
+goog.require('vbrank.standings');
+goog.require('vbrank.players');
 describe('Volleyball controllers', function() {
 
-    beforeEach(module('vbrank.standings'));
+    beforeEach(module('vbrank.standings', 'vbrank.players'));
 
     var playerService;
-    var gameService;
     var scope;
     var rootScope;
     var q;
     var controller;
 
-    beforeEach(inject(function($rootScope, $controller, $q, PlayerService, GameService) {
+    beforeEach(inject(function($rootScope, $controller, $q, PlayerService) {
         rootScope = $rootScope;
         controller = $controller;
         scope = rootScope.$new();
         playerService = PlayerService;
-        gameService = GameService;
         q = $q;
     }));
 
@@ -37,8 +36,10 @@ describe('Volleyball controllers', function() {
             scope.standings.emailAddress = 'b@c.com';
             scope.standings.name = 'new player';
             spyOn(playerService,'insertPlayer').andReturn(insertDeferred.promise);
+
             scope.standings.insertPlayer();
             rootScope.$apply();
+
             expect(scope.standings.emailAddress).toBe(null);
             expect(scope.standings.name).toBe(null);
             expect(scope.standings.players).toBe(playersFixture);
