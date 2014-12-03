@@ -1,20 +1,20 @@
 'use strict';
-goog.provide("net.stevemoyer.vbrank.app");
-goog.require("net.stevemoyer.vbrank.controllers");
+goog.provide("vbrank.app");
+goog.require("vbrank.controllers");
 goog.require("vbrank.profile");
 goog.require("vbrank.standings");
 goog.require("vbrank.games");
 goog.require("vbrank.players");
 
-var vbApp = angular.module('net.stevemoyer.vbrank.app', 
+var vbApp = angular.module('vbrank.app', 
         ['ngRoute', 
         vbrank.players.name,
         vbrank.profile.name,
         vbrank.standings.name,
         vbrank.games.name,
-        net.stevemoyer.vbrank.controllers.name]);
+        vbrank.controllers.name]);
 
-net.stevemoyer.vbrank.app=vbApp;
+vbrank.app = vbApp;
 
 vbApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.

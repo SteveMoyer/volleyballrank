@@ -12,7 +12,8 @@ module.exports = function(config){
                 'bower_components/closure-libraray/closure/goog/base.js',
                 'bower_components/closure-libraray/closure/goog/deps.js',
                 'deps.js',
-                {pattern: '!(bower_components)/**/*.js', watched: true, included: false, served: true},
+                'app/**/*.html',
+                {pattern: 'app/**/*.js', watched: true, included: false, served: true},
                 '../../../test/unit/**/*.js'
                                         ],
                            autoWatch : true,
@@ -22,17 +23,22 @@ module.exports = function(config){
                                'karma-chrome-launcher',
                                'karma-firefox-launcher',
                                'karma-jasmine',
-                               'karma-coverage'
+                               'karma-coverage',
+                               'karma-ng-html2js-preprocessor'
                            ],
                            junitReporter : {
                                outputFile: 'test_out/unit.xml',
                                suite: 'unit'
                            },
-                           preprocessors : { '!(bower_components)/**/*.js': 'coverage' },
+                           preprocessors : { 'app/**/*.js': 'coverage',
+                                               'app/**/*.html': ['ng-html2js']},
                                                      reporters : ['progress','coverage'],
-                                                     coverageReporter: {
+                                                     coverageReporter : {
                                                      type : 'html',
                                                      dir : '../../../coverage/'
-                                                     }
-    });
-    };
+                                                     },
+                         ngHtml2JsPreprocessor : {
+                           moduleName: 'templates'
+                    }
+                    });
+                    };

@@ -4,7 +4,11 @@ goog.require('vbrank.games');
 goog.require('vbrank.profile');
 describe('Volleyball player profile', function() {
 
-    beforeEach(module('vbrank.profile','vbrank.games'));
+    beforeEach(function() {
+        module('vbrank.profile');
+        module('vbrank.games');
+        module('templates');
+    });
 
     var playerService;
     var gameService;
@@ -12,17 +16,73 @@ describe('Volleyball player profile', function() {
     var rootScope;
     var q;
     var controller;
+    var compile;
+    var profileCtrl;
 
-    beforeEach(inject(function($rootScope, $controller, $q, PlayerService, GameService) {
+
+    beforeEach(inject(function($rootScope, $controller, $q, PlayerService, GameService,$compile) {
         rootScope = $rootScope;
         controller = $controller;
         scope = rootScope.$new();
         playerService = PlayerService;
         gameService = GameService;
+        compile = $compile;
+            
         q = $q;
     }));
 
+    describe('Profile Directive', function() {
+         var deferredGet, gamesGet;
+
+        beforeEach(function() {
+            deferredGet = q.defer();
+            gamesGet = q.defer();
+            deferredGet.resolve({});
+            gamesGet.resolve([]);
+        });
+        it('should retrieve player and games without id for currentUser', function() {
+            var element = compile('<vbr-profile></vbr-profile>')(rootScope);
+            spyOn(playerService, 'getPlayer').andReturn(deferredGet.promise);
+            spyOn(gameService, 'getGamesForPlayer').andReturn(gamesGet.promise);
+
+            scope.$digest();
+            expect(playerService.getPlayer).toHaveBeenCalledWith(undefined);
+            expect(gameService.getGamesForPlayer).toHaveBeenCalledWith(undefined);
     
+        });
+
+    
+        it('should retrieve player and games with id on load', function() {
+            var element = compile('<vbr-profile ng-attr-player-id="1"></vbr-profile>')(rootScope);
+            spyOn(playerService, 'getPlayer').andReturn(deferredGet.promise);
+            spyOn(gameService, 'getGamesForPlayer').andReturn(gamesGet.promise);
+
+            scope.$digest();
+            expect(playerService.getPlayer).toHaveBeenCalledWith('1');
+            expect(gameService.getGamesForPlayer).toHaveBeenCalledWith('1');
+    
+        });
+    });
+
+    describe('Edit Profile Directive', function() {
+         var deferredGet;
+
+        beforeEach(function() {
+            deferredGet = q.defer();
+            deferredGet.resolve({});
+        });
+
+    
+        it('should retrieve player for editing', function() {
+            var element = compile('<vbr-edit-profile></vbr-edit-profile>')(rootScope);
+            spyOn(playerService, 'getPlayer').andReturn(deferredGet.promise);
+
+            scope.$digest();
+            expect(playerService.getPlayer).toHaveBeenCalledWith();
+    
+        });
+    });
+
     describe('Edit Profile Controller', function() {
         var playerFixture = {id:5, name:"anon 1"};
         var updatedFixture = {id:5, name:"anon 2"};

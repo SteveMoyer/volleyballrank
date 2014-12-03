@@ -1,9 +1,9 @@
 'use strict';
-goog.provide('net.stevemoyer.vbrank.controllers');
+goog.provide('vbrank.controllers');
 goog.require('vbrank.games');
 goog.require('vbrank.players');
-var vbRankControllers = angular.module('net.stevemoyer.vbrank.controllers', []);
-net.stevemoyer.vbrank.controllers=vbRankControllers;
+var vbRankControllers = angular.module('vbrank.controllers', []);
+vbrank.controllers = vbRankControllers;
 
 vbRankControllers.controller('TabsCtrl',
         ['$scope', '$location','$rootScope', function($scope, $location,$rootScope) {

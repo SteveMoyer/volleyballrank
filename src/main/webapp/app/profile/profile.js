@@ -4,6 +4,7 @@ goog.require('vbrank.players');
 var vbRankProfile = angular.module('vbrank.profile',
         [vbrank.players.name]);
 vbrank.profile = vbRankProfile;
+
 vbRankProfile.controller('EditProfileCtrl',
         ['$scope', 'PlayerService', function($scope, PlayerService) {
             var that = this;
@@ -18,6 +19,7 @@ vbRankProfile.controller('EditProfileCtrl',
                 });
             };
         }]);
+
 vbRankProfile.controller('ProfileCtrl',
         ['$scope', 'PlayerService','GameService', function($scope, PlayerService, GameService) {
             var that = this;
@@ -40,6 +42,7 @@ vbRankProfile.controller('ProfileCtrl',
                 });
             };
         }]);
+
 vbRankProfile.directive('vbrProfile', function(){
     return {
         restrict: 'E',
