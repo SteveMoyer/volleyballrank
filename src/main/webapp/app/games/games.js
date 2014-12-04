@@ -13,11 +13,13 @@ vbRankGames.controller('NewGameCtrl',
                 GameService.addGame(that.game).then(function(game){});
             };
             that.addingGame = false;
-            PlayerService.getPlayerRefs().then(function(playerList){
-                that.players = playerList;
-                that.game={};
-                that.addingGame=true;
-            });
+            that.getPlayerRefs = function() {
+                PlayerService.getPlayerRefs().then(function(playerList){
+                    that.players = playerList;
+                    that.game = {};
+                    that.addingGame = true;
+                });
+            };
         }]);
 
 vbRankGames.directive('vbrNewGame', function(){
@@ -26,6 +28,10 @@ vbRankGames.directive('vbrNewGame', function(){
         controller: 'NewGameCtrl',
         controllerAs: 'newGame',
         templateUrl: 'app/games/newGame.html',
+        link: function(scope, elem, attrs) {
+            scope.newGame.getPlayerRefs();
+        }
+
     }
 });
 
