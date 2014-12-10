@@ -1,9 +1,10 @@
 'use strict';
 goog.require('vbrank.standings');
 goog.require('vbrank.players');
+goog.require('vbrank.app');
 describe('Volleyball controllers', function() {
 
-    beforeEach(module('vbrank.standings', 'vbrank.players'));
+    beforeEach(module('vbrank.standings', 'vbrank.players', 'vbrank.app'));
 
     var playerService;
     var scope;
@@ -18,7 +19,27 @@ describe('Volleyball controllers', function() {
         playerService = PlayerService;
         q = $q;
     }));
+    describe('Tab Controller', function() {
+        var tabCtrl;
+        var thisTab={};
+        var thatTab={};
+        beforeEach(function() {
+            tabCtrl = controller('TabsCtrl as tabCtrl',{$scope:scope});
+        });
+        it('should load tabs',function() {
+            rootScope.$broadcast("$viewContentLoaded", {event: "$viewContentLoaded",data: '/games/new'});
+            expect(scope.tabCtrl.tabs).toBeDefined();
+        });
+        it('tabClass should return active when same tab', function(){
+            scope.tabCtrl.selectedTab = thisTab;
+            expect(scope.tabCtrl.tabClass(thisTab)).toBe('active');
+        });
+        it('tabClass should return empty string when not same tab', function(){
+            scope.tabCtrl.selectedTab = thisTab;
+            expect(scope.tabCtrl.tabClass(thatTab)).toBe('');
+        });
 
+    });
     describe('Standings Controller', function(){
         var playersFixture = [{name:"anon 1"}];
         var deferred;
