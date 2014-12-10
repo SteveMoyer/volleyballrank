@@ -6,3 +6,6 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - "npm run-script pretest"
+after_failure:
+  - "cat /home/travis/build/SteveMoyer/volleyballrank/npm-debug.log"
+  - "cat /home/travis/build/SteveMoyer/volleyballrank/src/main/webapp/deps.js"
