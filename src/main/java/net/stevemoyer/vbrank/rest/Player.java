@@ -29,6 +29,11 @@ public class Player {
         this.wins = wins;
         this.losses = losses;
     }
+    public Player(String emailAddress, String name) {
+        this.emailAddress = emailAddress;
+        this.name = name;
+    }
+
 
     public Long getId() {
         return id;
@@ -91,6 +96,9 @@ public class Player {
         }
 
         winningPercentage = new BigDecimal(wins).divide(new BigDecimal(wins+losses),3,RoundingMode.HALF_UP);
+    }
+    public PlayerRef getRef() {
+        return new PlayerRef(id,name);
     }
 
 }

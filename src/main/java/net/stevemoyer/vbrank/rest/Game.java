@@ -42,6 +42,17 @@ public class Game {
 
     }
 
+    public Game(PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate){
+        this.playerA = a;
+        this.playerB = b;
+        this.playerC = c;
+        this.playerD = d;
+        this.teamABScore = abScore;
+        this.teamCDScore = cdScore;
+        this.gameDate = gameDate;
+    }
+
+
     public Game(Long id, PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate){
         this.id=id;
         this.playerA = a;

@@ -31,10 +31,7 @@ public class PlayerService {
         if(!players.isEmpty()) {
             return players.get(0);
         }
-        Player newMe = new Player();
-        newMe.setEmailAddress(user.getEmail());
-        newMe.setName(user.getNickname());
-        return insertPlayer(newMe);
+                return null;
     }
 
     @GET @Path("{playerId}") public Player getPlayer(@PathParam("playerId") Long playerId) {
