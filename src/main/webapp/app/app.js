@@ -5,6 +5,8 @@ goog.require("vbrank.profile");
 goog.require("vbrank.standings");
 goog.require("vbrank.games");
 goog.require("vbrank.players");
+goog.require("vbrank.user.ctrl");
+goog.require("vbrank.user.service");
 
 var vbApp = angular.module('vbrank.app',
         ['ngRoute',
@@ -12,7 +14,8 @@ var vbApp = angular.module('vbrank.app',
         vbrank.profile.name,
         vbrank.standings.name,
         vbrank.games.name,
-        vbrank.controllers.name]);
+        vbrank.controllers.name,
+        vbrank.user.ctrl.name]);
 
 vbrank.app = vbApp;
 

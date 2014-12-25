@@ -35,7 +35,8 @@ public class InitializationService {
                 populateGames();
             }
         }
-        return 1;
+        throw new WebApplicationException(
+                Response.status(Status.FORBIDDEN).type(MediaType.APPLICATION_JSON).build());
 
     }
     private void populatePlayers() {

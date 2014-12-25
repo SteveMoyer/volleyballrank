@@ -31,7 +31,8 @@ public class PlayerService {
         if(!players.isEmpty()) {
             return players.get(0);
         }
-                return null;
+         throw new WebApplicationException(
+                Response.status(Status.UNAUTHORIZED).type(MediaType.APPLICATION_JSON).build());
     }
 
     @GET @Path("{playerId}") public Player getPlayer(@PathParam("playerId") Long playerId) {

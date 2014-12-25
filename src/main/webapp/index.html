@@ -17,9 +17,9 @@
         <script src="deps.js"></script>
         <script> goog.require('vbrank.app');</script>
     </head>
-    <body>
+    <body ng-controller="UserCtrl as userCtrl" ng-show="userCtrl.user">
         <div ><ul class="nav nav-tabs" ng-controller="TabsCtrl as tabCtrl" >
-            <li ng-class="tabCtrl.tabClass(tab)" ng-repeat="tab in tabCtrl.tabs" tab="tab">
+            <li ng-class="tabCtrl.tabClass(tab)" ng-repeat="tab in tabCtrl.tabs" tab="tab" ng-show="!tab.role || userCtrl.user.role===tab.role">
                 <a href="{{tab.link}}" ng-click="tabCtrl.setSelectedTab(tab)">{{tab.label}}</a>
             </li>
         </ul></div>
