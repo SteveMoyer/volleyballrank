@@ -21,7 +21,7 @@ public class Game {
         private PlayerRef playerC;
     @Persistent 
         private PlayerRef playerD;
-    // TODO: THis denormailization makes me sad
+    // TODO: THis denormalization makes me sad
     @Persistent 
         private Long playerAId;
     @Persistent 
@@ -37,12 +37,15 @@ public class Game {
         private int teamCDScore;
     @Persistent
         private Date gameDate;
+    @Persistent
+        private String postedBy;
+
 
     public Game(){
 
     }
 
-    public Game(PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate){
+    public Game(PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate, String postedBy){
         this.playerA = a;
         this.playerB = b;
         this.playerC = c;
@@ -50,10 +53,11 @@ public class Game {
         this.teamABScore = abScore;
         this.teamCDScore = cdScore;
         this.gameDate = gameDate;
+        this.postedBy = postedBy;
     }
 
 
-    public Game(Long id, PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate){
+    public Game(Long id, PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate, String postedBy){
         this.id=id;
         this.playerA = a;
         this.playerB = b;
@@ -62,6 +66,7 @@ public class Game {
         this.teamABScore = abScore;
         this.teamCDScore = cdScore;
         this.gameDate = gameDate;
+        this.postedBy = postedBy;
     }
 
     public Long getId() {
@@ -108,6 +113,12 @@ public class Game {
     }
     public Date getGameDate() {
         return gameDate;
+    }
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
+    }
+    public String getPostedBy() {
+        return postedBy;
     }
     public void updatePlayerIds() {
         if(playerA != null) {playerAId=playerA.getId();}

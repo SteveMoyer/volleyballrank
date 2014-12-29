@@ -37,11 +37,12 @@ describe('Game functionality', function() {
             deferredGet.resolve([]);
         });
         it('should retrieve player refs', function() {
-            var element = compile('<vbr-new-game></vbr-new-game>')(rootScope);
+            var element = compile('<vbr-new-game player-id="1"></vbr-new-game>')(rootScope);
             spyOn(playerService, 'getPlayerRefs').andReturn(deferredGet.promise);
 
             scope.$digest();
             expect(playerService.getPlayerRefs).toHaveBeenCalledWith();
+            expect(scope.newGame.game.playerA.id).toEqual("1");
 
         });
 

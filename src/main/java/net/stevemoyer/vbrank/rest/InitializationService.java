@@ -26,14 +26,12 @@ public class InitializationService {
     private static final Player jens = new Player("jens@test.com","Jens");
     PersistenceManager pm = PMF.getInstance().getPersistenceManager();
     @GET public int getInitialize() {
-        if(SystemProperty.environment.value() != SystemProperty.Environment.Value.Production) {
 
-            UserService userService = UserServiceFactory.getUserService();
-            if(userService.isUserAdmin()){
-                deleteAllData();
-                populatePlayers();
-                populateGames();
-            }
+        UserService userService = UserServiceFactory.getUserService();
+        if(userService.isUserAdmin()){
+            deleteAllData();
+            populatePlayers();
+            populateGames();
         }
         throw new WebApplicationException(
                 Response.status(Status.FORBIDDEN).type(MediaType.APPLICATION_JSON).build());
@@ -51,29 +49,29 @@ public class InitializationService {
     }
     private void populateGames() {
         GameService gameService = new GameService();
-        gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15)));
-        gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eze.getRef(),eric.getRef(),21,19, new Date(2014,11,15)));
-        gameService.insertGame(new Game(steve.getRef(),eze.getRef(),eric.getRef(),yung.getRef(),21,19, new Date(2014,11,15)));
-        gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15)));
-        gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eric.getRef(),eze.getRef(),21,19, new Date(2014,11,15)));
+        gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
+        gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eze.getRef(),eric.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
+        gameService.insertGame(new Game(steve.getRef(),eze.getRef(),eric.getRef(),yung.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
+        gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
+        gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eric.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
 
-        gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,17, new Date(2014,11,17)));
-        gameService.insertGame(new Game(jens.getRef(),yung.getRef(),uli.getRef(),eric.getRef(),21,19, new Date(2014,11,17)));
-        gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eric.getRef(),yung.getRef(),26,28, new Date(2014,11,17)));
-        gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,15, new Date(2014,11,17)));
-        gameService.insertGame(new Game(jens.getRef(),yung.getRef(),eric.getRef(),uli.getRef(),21,19, new Date(2014,11,17)));
+        gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,17, new Date(2014,11,17),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),yung.getRef(),uli.getRef(),eric.getRef(),21,19, new Date(2014,11,17),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eric.getRef(),yung.getRef(),26,28, new Date(2014,11,17),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,15, new Date(2014,11,17),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),yung.getRef(),eric.getRef(),uli.getRef(),21,19, new Date(2014,11,17),"steve@test.com"));
 
-        gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),21,19, new Date(2014,11,19)));
-        gameService.insertGame(new Game(jens.getRef(),steve.getRef(),uli.getRef(),eze.getRef(),14,21, new Date(2014,11,19)));
-        gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eze.getRef(),steve.getRef(),21,19, new Date(2014,11,19)));
-        gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),19,21, new Date(2014,11,19)));
-        gameService.insertGame(new Game(jens.getRef(),steve.getRef(),eze.getRef(),uli.getRef(),21,19, new Date(2014,11,19)));
+        gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),steve.getRef(),uli.getRef(),eze.getRef(),14,21, new Date(2014,11,19),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eze.getRef(),steve.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),19,21, new Date(2014,11,19),"steve@test.com"));
+        gameService.insertGame(new Game(jens.getRef(),steve.getRef(),eze.getRef(),uli.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
 
-        gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,23)));
-        gameService.insertGame(new Game(uli.getRef(),yung.getRef(),eze.getRef(),nick.getRef(),21,19, new Date(2014,11,23)));
-        gameService.insertGame(new Game(uli.getRef(),eze.getRef(),nick.getRef(),yung.getRef(),21,19, new Date(2014,11,23)));
-        gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),18,21, new Date(2014,11,23)));
-        gameService.insertGame(new Game(uli.getRef(),yung.getRef(),nick.getRef(),eze.getRef(),21,19, new Date(2014,11,23)));
+        gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
+        gameService.insertGame(new Game(uli.getRef(),yung.getRef(),eze.getRef(),nick.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
+        gameService.insertGame(new Game(uli.getRef(),eze.getRef(),nick.getRef(),yung.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
+        gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),18,21, new Date(2014,11,23),"steve@test.com"));
+        gameService.insertGame(new Game(uli.getRef(),yung.getRef(),nick.getRef(),eze.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
 
 
 

@@ -52,7 +52,6 @@
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
-            <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core" -->
             <artifactId>jersey-servlet</artifactId>
             <version>1.18.1</version>
         </dependency>
@@ -72,13 +71,7 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <!--        <dependency>
-                <groupId>javax.ws.rs</groupId>
-                    <artifactId>javax.ws.rs-api</artifactId>
-                        <version>2.0.1</version>
-                    </dependency>
--->
-        <dependency>
+               <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>

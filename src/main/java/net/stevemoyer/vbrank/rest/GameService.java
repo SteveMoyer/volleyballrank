@@ -12,6 +12,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.*;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 
 
 @Path("/games") @Produces(MediaType.APPLICATION_JSON)
@@ -22,6 +26,12 @@ public class GameService {
         /// TODO: add transactions
         game.updatePlayerIds();
         game.setGameDate(Calendar.getInstance().getTime());
+        UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+
+        String emailAddress = user.getEmail();
+ 
+        game.setPostedBy(user.getEmail());
         Game updatedGame = pm.makePersistent(game);
         addPlayerGame(game.getPlayerA(),game.getTeamABScore() > game.getTeamCDScore());
         addPlayerGame(game.getPlayerB(),game.getTeamABScore() > game.getTeamCDScore());
