@@ -2,3 +2,7 @@ node_modules
 bower_components
 .idea
 coverage
+.classpath
+.project
+.settings
+workbench.xmi
