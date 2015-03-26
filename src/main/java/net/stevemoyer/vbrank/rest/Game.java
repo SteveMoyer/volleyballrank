@@ -23,6 +23,7 @@ public class Game {
     @Column(name="playerC_id")
         private Player playerC;
     @Column(name="playerD_id")
+    @Persistent(
         private Player playerD;
     @Persistent
         private int teamABScore;

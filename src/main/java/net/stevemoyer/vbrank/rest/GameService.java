@@ -29,17 +29,13 @@ public class GameService {
 
     game.setPostedBy(emailAddress);
     //TODO: figure out how to attach the posted games rather than looking them up
-    game.setPlayerA(playerService.getPlayer(game.getPlayerA().getId()));
-    game.setPlayerB(playerService.getPlayer(game.getPlayerB().getId()));
-    game.setPlayerC(playerService.getPlayer(game.getPlayerC().getId()));
-    game.setPlayerD(playerService.getPlayer(game.getPlayerD().getId()));
-    Game updatedGame = pm.makePersistent(game);
     boolean teamABWon = game.getTeamABScore() > game.getTeamCDScore();
+    game.setPlayerA(addPlayerGame(game.getPlayerA(), teamABWon));
+    game.setPlayerB(addPlayerGame(game.getPlayerB(), teamABWon));
+    game.setPlayerC(addPlayerGame(game.getPlayerC(), !teamABWon));
+    game.setPlayerD(addPlayerGame(game.getPlayerD(), !teamABWon));
+    Game updatedGame = pm.makePersistent(game);
 
-    addPlayerGame(game.getPlayerA(), teamABWon);
-    addPlayerGame(game.getPlayerB(), teamABWon);
-    addPlayerGame(game.getPlayerC(), !teamABWon);
-    addPlayerGame(game.getPlayerD(), !teamABWon);
     return updatedGame;
   }
   @GET @Path("/latest/{playerId}") public List<Game> getLatest(@PathParam("playerId") int playerId) {
@@ -48,13 +44,13 @@ public class GameService {
     return (List<Game>) q.execute(playerId);
   }
 
-  private void addPlayerGame(Player player, boolean wonGame) {
+  private Player addPlayerGame(Player player, boolean wonGame) {
     Player updatedPlayer = playerService.getPlayer(player.getId());
     if(wonGame) {
       updatedPlayer.setWins(player.getWins() + 1);
     } else {
       updatedPlayer.setLosses(player.getLosses() + 1);
     }
-    pm.makePersistent(updatedPlayer);
+    return pm.makePersistent(updatedPlayer);
   }
 }
