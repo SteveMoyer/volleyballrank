@@ -1,5 +1,6 @@
 package net.stevemoyer.vbrank.rest;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -11,9 +12,11 @@ import java.math.RoundingMode;
 @XmlRootElement
 @PersistenceCapable
 public class Player {
-    @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private Long id;
+    @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private int id;
     @Persistent private String emailAddress;
-    @Persistent private String name;
+    @Persistent 
+    @Column(name="player_name")
+    private String name;
     @Persistent private int wins=0;
     @Persistent private int losses=0;
     @Persistent private BigDecimal winningPercentage;
@@ -22,7 +25,7 @@ public class Player {
 
     }
 
-    public Player(Long id, String emailAddress, String name, int wins, int losses) {
+    public Player(int id, String emailAddress, String name, int wins, int losses) {
         this.id = id;
         this.emailAddress = emailAddress;
         this.name = name;
@@ -35,7 +38,7 @@ public class Player {
     }
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -47,7 +50,7 @@ public class Player {
         return emailAddress;
     }
 
-    public void setId(Long idIn) {
+    public void setId(int idIn) {
         this.id = idIn;
     }
 
@@ -96,9 +99,6 @@ public class Player {
         }
 
         winningPercentage = new BigDecimal(wins).divide(new BigDecimal(wins+losses),3,RoundingMode.HALF_UP);
-    }
-    public PlayerRef getRef() {
-        return new PlayerRef(id,name);
     }
 
 }

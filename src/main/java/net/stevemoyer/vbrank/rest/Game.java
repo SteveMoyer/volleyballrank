@@ -2,35 +2,28 @@ package net.stevemoyer.vbrank.rest;
 
 import java.util.Date;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Serialized;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @PersistenceCapable
 public class Game {
     @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-        private Long id;
-    @Persistent 
-        private PlayerRef playerA;
-    @Persistent 
-        private PlayerRef playerB;
-    @Persistent 
-        private PlayerRef playerC;
-    @Persistent 
-        private PlayerRef playerD;
-    // TODO: THis denormalization makes me sad
-    @Persistent 
-        private Long playerAId;
-    @Persistent 
-        private Long playerBId;
-    @Persistent 
-        private Long playerCId;
-    @Persistent 
-        private Long playerDId;
-
+        private int id;
+    @Column(name="playerA_id")
+        private Player playerA;
+    @Column(name="playerB_id")
+        private Player playerB;
+    @Column(name="playerC_id")
+        private Player playerC;
+    @Column(name="playerD_id")
+        private Player playerD;
     @Persistent
         private int teamABScore;
     @Persistent
@@ -45,7 +38,7 @@ public class Game {
 
     }
 
-    public Game(PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate, String postedBy){
+    public Game(Player a, Player b, Player c, Player d, int abScore, int cdScore, Date gameDate, String postedBy){
         this.playerA = a;
         this.playerB = b;
         this.playerC = c;
@@ -57,7 +50,7 @@ public class Game {
     }
 
 
-    public Game(Long id, PlayerRef a, PlayerRef b, PlayerRef c, PlayerRef d, int abScore, int cdScore, Date gameDate, String postedBy){
+    public Game(int id, Player a, Player b, Player c, Player d, int abScore, int cdScore, Date gameDate, String postedBy){
         this.id=id;
         this.playerA = a;
         this.playerB = b;
@@ -69,27 +62,43 @@ public class Game {
         this.postedBy = postedBy;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long idIn) {
+    public void setId(int idIn) {
         this.id = idIn;
     }
 
-    public PlayerRef getPlayerA() {
-        return playerA;
+    public void setPlayerA(Player player) {
+        playerA = player;
     }
 
-    public PlayerRef getPlayerB() {
-        return playerB;
+    public void setPlayerB(Player player) {
+      playerB = player;
     }
 
-    public PlayerRef getPlayerC() {
-        return playerC;
+    public void setPlayerC(Player player) {
+      playerC = player;
     }
 
-    public PlayerRef getPlayerD() {
+    public void setPlayerD(Player player) {
+      playerD = player;
+    }
+
+    public Player getPlayerA() {
+      return playerA;
+    }
+
+    public Player getPlayerB() {
+      return playerB;
+    }
+
+    public Player getPlayerC() {
+      return playerC;
+    }
+
+    public Player getPlayerD() {
         return playerD;
     }
 
@@ -120,11 +129,4 @@ public class Game {
     public String getPostedBy() {
         return postedBy;
     }
-    public void updatePlayerIds() {
-        if(playerA != null) {playerAId=playerA.getId();}
-        if(playerB != null) {playerBId=playerB.getId();}
-        if(playerC != null) {playerCId=playerC.getId();}
-        if(playerD != null) {playerDId=playerD.getId();}
-    }
-
 }

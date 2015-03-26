@@ -1,8 +1,4 @@
 package net.stevemoyer.vbrank.rest;
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.api.utils.SystemProperty;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -29,14 +25,11 @@ public class InitializationService {
   @GET
   public int getInitialize() {
 
-    UserService userService = UserServiceFactory.getUserService();
-    if(userService.isUserAdmin()){
-      deleteAllData();
-      populatePlayers();
-      populateGames();
-    }
-    throw new WebApplicationException(
-        Response.status(Status.FORBIDDEN).type(MediaType.APPLICATION_JSON).build());
+    // TODO: check for admin
+    deleteAllData();
+    populatePlayers();
+    populateGames();
+    return 1;
   }
 
   private void populatePlayers() {
@@ -52,35 +45,34 @@ public class InitializationService {
 
   private void populateGames() {
     GameService gameService = new GameService();
-    gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
-    gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eze.getRef(),eric.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
-    gameService.insertGame(new Game(steve.getRef(),eze.getRef(),eric.getRef(),yung.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
-    gameService.insertGame(new Game(steve.getRef(),eric.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
-    gameService.insertGame(new Game(steve.getRef(),yung.getRef(),eric.getRef(),eze.getRef(),21,19, new Date(2014,11,15),"steve@test.com"));
+    gameService.insertGame(new Game(steve,eric,yung,eze,21,19, new Date(2014,11,15),"steve@test.com"));
+     gameService.insertGame(new Game(steve,yung,eze,eric,21,19, new Date(2014,11,15),"steve@test.com"));
+     gameService.insertGame(new Game(steve,eze,eric,yung,21,19, new Date(2014,11,15),"steve@test.com"));
+     gameService.insertGame(new Game(steve,eric,yung,eze,21,19, new Date(2014,11,15),"steve@test.com"));
+     gameService.insertGame(new Game(steve,yung,eric,eze,21,19, new Date(2014,11,15),"steve@test.com"));
 
-    gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,17, new Date(2014,11,17),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),yung.getRef(),uli.getRef(),eric.getRef(),21,19, new Date(2014,11,17),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eric.getRef(),yung.getRef(),26,28, new Date(2014,11,17),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),eric.getRef(),yung.getRef(),uli.getRef(),21,15, new Date(2014,11,17),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),yung.getRef(),eric.getRef(),uli.getRef(),21,19, new Date(2014,11,17),"steve@test.com"));
+     gameService.insertGame(new Game(jens,eric,yung,uli,21,17, new Date(2014,11,17),"steve@test.com"));
+     gameService.insertGame(new Game(jens,yung,uli,eric,21,19, new Date(2014,11,17),"steve@test.com"));
+     gameService.insertGame(new Game(jens,uli,eric,yung,26,28, new Date(2014,11,17),"steve@test.com"));
+     gameService.insertGame(new Game(jens,eric,yung,uli,21,15, new Date(2014,11,17),"steve@test.com"));
+     gameService.insertGame(new Game(jens,yung,eric,uli,21,19, new Date(2014,11,17),"steve@test.com"));
 
-    gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),steve.getRef(),uli.getRef(),eze.getRef(),14,21, new Date(2014,11,19),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),uli.getRef(),eze.getRef(),steve.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),eze.getRef(),steve.getRef(),uli.getRef(),19,21, new Date(2014,11,19),"steve@test.com"));
-    gameService.insertGame(new Game(jens.getRef(),steve.getRef(),eze.getRef(),uli.getRef(),21,19, new Date(2014,11,19),"steve@test.com"));
+     gameService.insertGame(new Game(jens,eze,steve,uli,21,19, new Date(2014,11,19),"steve@test.com"));
+     gameService.insertGame(new Game(jens,steve,uli,eze,14,21, new Date(2014,11,19),"steve@test.com"));
+     gameService.insertGame(new Game(jens,uli,eze,steve,21,19, new Date(2014,11,19),"steve@test.com"));
+     gameService.insertGame(new Game(jens,eze,steve,uli,19,21, new Date(2014,11,19),"steve@test.com"));
+     gameService.insertGame(new Game(jens,steve,eze,uli,21,19, new Date(2014,11,19),"steve@test.com"));
 
-    gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
-    gameService.insertGame(new Game(uli.getRef(),yung.getRef(),eze.getRef(),nick.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
-    gameService.insertGame(new Game(uli.getRef(),eze.getRef(),nick.getRef(),yung.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
-    gameService.insertGame(new Game(uli.getRef(),nick.getRef(),yung.getRef(),eze.getRef(),18,21, new Date(2014,11,23),"steve@test.com"));
-    gameService.insertGame(new Game(uli.getRef(),yung.getRef(),nick.getRef(),eze.getRef(),21,19, new Date(2014,11,23),"steve@test.com"));
+     gameService.insertGame(new Game(uli,nick,yung,eze,21,19, new Date(2014,11,23),"steve@test.com"));
+     gameService.insertGame(new Game(uli,yung,eze,nick,21,19, new Date(2014,11,23),"steve@test.com"));
+     gameService.insertGame(new Game(uli,eze,nick,yung,21,19, new Date(2014,11,23),"steve@test.com"));
+     gameService.insertGame(new Game(uli,nick,yung,eze,18,21, new Date(2014,11,23),"steve@test.com"));
+     gameService.insertGame(new Game(uli,yung,nick,eze,21,19, new Date(2014,11,23),"steve@test.com"));
   }
 
   private void deleteAllData() {
     deleteAllEntity(Game.class);
-    deleteAllEntity(Player.class);
-    deleteAllEntity(PlayerRef.class);
+     deleteAllEntity(Player.class);
   }
 
   private void deleteAllEntity(Class<?> clazz) {
