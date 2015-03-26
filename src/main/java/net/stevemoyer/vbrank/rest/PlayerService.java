@@ -47,9 +47,11 @@ public class PlayerService {
     return pm.makePersistent(me);
   }
   @GET public List<Player> getStanding(){
-    Query q = pm.newQuery(Player.class);
-    q.setOrdering("winningPercentage desc, wins desc, losses");
-    return (List<Player>) q.execute();
+    Query q = pm.newQuery("javax.jdo.query.SQL","select * from player order by case when wins = 0 then 0.0 else cast(wins as Decimal(8,3))/(wins+losses) end desc");
+    q.setClass(Player.class);
+    Object result = q.execute();
+    System.out.println(result);
+    return (List<Player>) result;
   }
   @GET @Path("refs") public List<Player> getPlayers() {
     Query q = pm.newQuery(Player.class);

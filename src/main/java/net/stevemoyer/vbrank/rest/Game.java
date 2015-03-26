@@ -3,13 +3,10 @@ package net.stevemoyer.vbrank.rest;
 import java.util.Date;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Serialized;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @PersistenceCapable
@@ -23,7 +20,6 @@ public class Game {
     @Column(name="playerC_id")
         private Player playerC;
     @Column(name="playerD_id")
-    @Persistent(
         private Player playerD;
     @Persistent
         private int teamABScore;
