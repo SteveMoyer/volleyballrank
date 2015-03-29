@@ -9,14 +9,19 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 //import javax.servlet.http.HttpServletRequest;
 
+
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
 //import java.util.logging.Logger;
 
 //import javax.servlet.http.HttpServletResponse;
-
+@Singleton
 public class AuthServletFilter implements Filter {
-  PersistenceManager pm = PMF.getInstance().getPersistenceManager();
+@Inject  Provider<PersistenceManager> pmf;
   //private static final Logger log = Logger.getLogger(PlayerService.class.getName());
-
   public void doFilter(final ServletRequest request, final ServletResponse response,
       FilterChain chain)
     throws java.io.IOException, javax.servlet.ServletException {

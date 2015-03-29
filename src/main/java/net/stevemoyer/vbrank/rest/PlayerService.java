@@ -6,20 +6,28 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.*;
 import javax.ws.rs.core.MediaType;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import java.util.List;
 import java.util.logging.Logger;
 
-@Path("/players") @Produces(MediaType.APPLICATION_JSON)
+@Path("/players") @Produces(MediaType.APPLICATION_JSON) @Singleton
 public class PlayerService {
-  PersistenceManager pm = PMF.getManager();
+  PMF pmf;
   private static final Logger log = Logger.getLogger(PlayerService.class.getName());
+@Inject
+public PlayerService(PMF pmf) {
+  this.pmf =pmf;
+}
 
   @GET @Path("me") public Player getMe() {
    // UserService userService = UserServiceFactory.getUserService();
    // User user = userService.getCurrentUser();
 
     String emailAddress ="steve@test.com";
-    Query q = pm.newQuery(Player.class);
+    Query q = pmf.get().newQuery(Player.class);
     q.setFilter("emailAddress == emailAddressParam");
     q.declareParameters("String emailAddressParam");
 
@@ -33,7 +41,7 @@ public class PlayerService {
   }
 
   @GET @Path("{playerId}") public Player getPlayer(@PathParam("playerId") int playerId) {
-    return pm.getObjectById(Player.class,playerId);
+    return pmf.get().getObjectById(Player.class,playerId);
   }
   @POST @Path("{playerId}") public Player updatePlayer(@PathParam("playerId") int playerId,
       Player updatedPlayer) {
@@ -44,24 +52,23 @@ public class PlayerService {
           Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build());
     }
     me.setName(updatedPlayer.getName());
-    return pm.makePersistent(me);
+    return pmf.get().makePersistent(me);
   }
   @GET public List<Player> getStanding(){
-    Query q = pm.newQuery("javax.jdo.query.SQL","select * from player order by case when wins = 0 then 0.0 else cast(wins as Decimal(8,3))/(wins+losses) end desc");
+    Query q = pmf.get().newQuery("javax.jdo.query.SQL","select * from player order by case when wins = 0 then 0.0 else cast(wins as Decimal(8,3))/(wins+losses) end desc");
     q.setClass(Player.class);
     Object result = q.execute();
     System.out.println(result);
     return (List<Player>) result;
   }
   @GET @Path("refs") public List<Player> getPlayers() {
-    Query q = pm.newQuery(Player.class);
+    Query q = pmf.get().newQuery(Player.class);
     q.setOrdering("name");
     return (List<Player>) q.execute();
   }
 
   @POST public Player insertPlayer(Player player) {
-    Player updatedPlayer = pm.makePersistent(player);
-    pm.flush();
+    Player updatedPlayer = pmf.get().makePersistent(player);
     return updatedPlayer;
 
   }

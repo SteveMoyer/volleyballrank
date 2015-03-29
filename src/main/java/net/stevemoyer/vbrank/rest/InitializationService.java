@@ -6,11 +6,17 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.*;
 import javax.ws.rs.core.MediaType;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
 import java.util.List;
 import java.util.Date;
 import java.util.logging.Logger;
 
 @Path("/initialize") @Produces(MediaType.APPLICATION_JSON)
+@Singleton
 public class InitializationService {
   private static final Logger log = Logger.getLogger(PlayerService.class.getName());
   private static final Player steve = new Player("steve@test.com","Steve");
@@ -20,7 +26,15 @@ public class InitializationService {
   private static final Player nick = new Player("nick@test.com","Nick");
   private static final Player uli = new Player("uli@test.com","Uli");
   private static final Player jens = new Player("jens@test.com","Jens");
-  PersistenceManager pm = PMF.getInstance().getPersistenceManager();
+  final Provider<PersistenceManager> pmf;
+    final PlayerService playerService ;
+    final GameService gameService;
+    @Inject
+  public InitializationService(Provider<PersistenceManager> pmf, PlayerService playerService, GameService gameService) {
+    this.pmf=pmf;
+    this.playerService=playerService;
+    this.gameService=gameService;
+  }
 
   @GET
   public int getInitialize() {
@@ -33,7 +47,6 @@ public class InitializationService {
   }
 
   private void populatePlayers() {
-    PlayerService playerService = new PlayerService();
     playerService.insertPlayer(steve);
     playerService.insertPlayer(eric);
     playerService.insertPlayer(yung);
@@ -44,7 +57,6 @@ public class InitializationService {
   }
 
   private void populateGames() {
-    GameService gameService = new GameService();
     gameService.insertGame(new Game(steve,eric,yung,eze,21,19, new Date(2014,11,15),"steve@test.com"));
      gameService.insertGame(new Game(steve,yung,eze,eric,21,19, new Date(2014,11,15),"steve@test.com"));
      gameService.insertGame(new Game(steve,eze,eric,yung,21,19, new Date(2014,11,15),"steve@test.com"));
@@ -76,7 +88,7 @@ public class InitializationService {
   }
 
   private void deleteAllEntity(Class<?> clazz) {
-    Query q = pm.newQuery(clazz);
+    Query q = pmf.get().newQuery(clazz);
     q.deletePersistentAll();
   }
 }

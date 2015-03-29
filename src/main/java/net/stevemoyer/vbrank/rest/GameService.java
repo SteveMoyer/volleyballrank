@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.ws.rs.POST;
@@ -13,13 +14,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.*;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
 
 
 @Path("/games") @Produces(MediaType.APPLICATION_JSON)
+@Singleton
 public class GameService {
-  PersistenceManager pm = PMF.getManager();
-
-  PlayerService playerService = new PlayerService();
+  final Provider<PersistenceManager> pmf;
+  final PlayerService playerService;
+  //private static final Logger log = Logger.getLogger(PlayerService.class.getName());
+@Inject public GameService(Provider<PersistenceManager> pmf,PlayerService playerService) {
+  this.pmf=pmf;
+  this.playerService=playerService;
+}
 
   @POST public Game insertGame(Game game) {
     /// TODO: add transactions
@@ -34,12 +44,12 @@ public class GameService {
     game.setPlayerB(addPlayerGame(game.getPlayerB(), teamABWon));
     game.setPlayerC(addPlayerGame(game.getPlayerC(), !teamABWon));
     game.setPlayerD(addPlayerGame(game.getPlayerD(), !teamABWon));
-    Game updatedGame = pm.makePersistent(game);
+    Game updatedGame = pmf.get().makePersistent(game);
 
     return updatedGame;
   }
   @GET @Path("/latest/{playerId}") public List<Game> getLatest(@PathParam("playerId") int playerId) {
-    Query q = pm.newQuery("javax.jdo.query.SQL","select * from game where playerA_id = ?1 or playerB_id = ?1 or playerC_id = ?1 or playerD_id = ?1");
+    Query q = pmf.get().newQuery("javax.jdo.query.SQL","select * from game where playerA_id = ?1 or playerB_id = ?1 or playerC_id = ?1 or playerD_id = ?1");
     q.setClass(Game.class);
     return (List<Game>) q.execute(playerId);
   }
@@ -51,6 +61,6 @@ public class GameService {
     } else {
       updatedPlayer.setLosses(player.getLosses() + 1);
     }
-    return pm.makePersistent(updatedPlayer);
+    return pmf.get().makePersistent(updatedPlayer);
   }
 }

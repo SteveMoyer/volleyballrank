@@ -2,6 +2,26 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>net.stevemoyer.vbrank.rest</display-name>
   <filter>
+    <filter-name>guiceFilter</filter-name>
+    <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>guiceFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!--
+  <filter>
+    <filter-name>persistenceFilter</filter-name>
+    <filter-class>net.stevemoyer.vbrank.PersistenceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>persistenceFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+
+  <filter>
     <filter-name>authfilter</filter-name>
     <filter-class>net.stevemoyer.vbrank.rest.AuthServletFilter</filter-class>
   </filter>
@@ -9,6 +29,11 @@
     <filter-name>authfilter</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
+-->
+  <listener>
+    <listener-class>net.stevemoyer.vbrank.VbRankApplication</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>volleyballrank Rest Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
