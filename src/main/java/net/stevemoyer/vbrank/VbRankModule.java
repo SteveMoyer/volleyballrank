@@ -8,6 +8,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
 import net.stevemoyer.vbrank.rest.AuthServletFilter;
+import net.stevemoyer.vbrank.rest.PMF;
 
 import com.google.inject.Provides;
 import com.google.inject.servlet.RequestScoped;
@@ -30,13 +31,14 @@ public class VbRankModule extends ServletModule {
   }
   @Override
   protected void configureServlets() {
+    bind(PersistenceManager.class).toProvider(PMF.class).in(RequestScoped.class);
     filter("/*").through(PersistenceFilter.class);
     filter("/*").through(AuthServletFilter.class);
   }
 
-  @Provides @RequestScoped PersistenceManager providePersistenceManager() {
-
-    return pmfInstance.getPersistenceManager();
-  }
+//  @Provides @RequestScoped PersistenceManager providePersistenceManager() {
+//
+//    return pmfInstance.getPersistenceManager();
+//  }
 
 }

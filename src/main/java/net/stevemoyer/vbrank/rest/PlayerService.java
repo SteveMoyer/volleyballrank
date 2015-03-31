@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.logging.Logger;
 
 @Path("/players") @Produces(MediaType.APPLICATION_JSON) @Singleton
 public class PlayerService {
-  PMF pmf;
+  Provider<PersistenceManager> pmf;
   private static final Logger log = Logger.getLogger(PlayerService.class.getName());
 @Inject
-public PlayerService(PMF pmf) {
+public PlayerService(Provider<PersistenceManager> pmf) {
   this.pmf =pmf;
 }
 

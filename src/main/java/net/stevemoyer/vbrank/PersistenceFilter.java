@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import net.stevemoyer.vbrank.rest.PMF;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,9 +35,7 @@ public class PersistenceFilter implements Filter {
     try {
       chain.doFilter(request, response);
     } finally {
-    System.out.println("closing a persitence manager");
       pm.close();
-    System.out.println("closed a persitence manager");
 
     }
   }
