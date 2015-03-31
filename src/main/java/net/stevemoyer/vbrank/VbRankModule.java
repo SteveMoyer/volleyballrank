@@ -35,10 +35,4 @@ public class VbRankModule extends ServletModule {
     filter("/*").through(PersistenceFilter.class);
     filter("/*").through(AuthServletFilter.class);
   }
-
-//  @Provides @RequestScoped PersistenceManager providePersistenceManager() {
-//
-//    return pmfInstance.getPersistenceManager();
-//  }
-
 }

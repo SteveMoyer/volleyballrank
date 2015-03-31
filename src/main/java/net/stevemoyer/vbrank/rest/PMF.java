@@ -23,7 +23,7 @@ public final class PMF implements Provider<PersistenceManager> {
 
     pmfInstance = JDOHelper.getPersistenceManagerFactory(properties);
   }
-   @Override
+  @Override
   public PersistenceManager get() {
     System.out.println("returning a new persitence manager");
     return pmfInstance.getPersistenceManager();

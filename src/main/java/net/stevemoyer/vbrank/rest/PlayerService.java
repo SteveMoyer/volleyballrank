@@ -18,14 +18,14 @@ import java.util.logging.Logger;
 public class PlayerService {
   Provider<PersistenceManager> pmf;
   private static final Logger log = Logger.getLogger(PlayerService.class.getName());
-@Inject
-public PlayerService(Provider<PersistenceManager> pmf) {
-  this.pmf =pmf;
-}
+  @Inject
+  public PlayerService(Provider<PersistenceManager> pmf) {
+    this.pmf =pmf;
+  }
 
   @GET @Path("me") public Player getMe() {
-   // UserService userService = UserServiceFactory.getUserService();
-   // User user = userService.getCurrentUser();
+    // UserService userService = UserServiceFactory.getUserService();
+    // User user = userService.getCurrentUser();
 
     String emailAddress ="steve@test.com";
     Query q = pmf.get().newQuery(Player.class);
