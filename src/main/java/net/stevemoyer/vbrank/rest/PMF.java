@@ -16,10 +16,6 @@ public final class PMF implements Provider<PersistenceManager> {
     properties.put( "javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
     properties.put("javax.jdo.option.ConnectionDriverName", "org.h2.Driver");
     properties.put("javax.jdo.option.ConnectionURL", "jdbc:h2:./target/db/vb-rank");
-    properties.put("datanucleus.autoCreateSchema", "true");
-    properties.put("datanucleus.autoCreateColumns", "true");
-    properties.put("datanucleus.autoCreateConstraints", "true");
-    properties.put("datanucleus.autoCreateTables", "true");
 
     pmfInstance = JDOHelper.getPersistenceManagerFactory(properties);
   }

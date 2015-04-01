@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @PersistenceCapable
 public class Game {
     @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-        private int id;
+        private int gameid;
     @Column(name="playerA_id")
         private Player playerA;
     @Column(name="playerB_id")
@@ -47,8 +47,8 @@ public class Game {
     }
 
 
-    public Game(int id, Player a, Player b, Player c, Player d, int abScore, int cdScore, Date gameDate, String postedBy){
-        this.id=id;
+    public Game(int gameid, Player a, Player b, Player c, Player d, int abScore, int cdScore, Date gameDate, String postedBy){
+        this.gameid=gameid;
         this.playerA = a;
         this.playerB = b;
         this.playerC = c;
@@ -60,11 +60,11 @@ public class Game {
     }
 
     public int getId() {
-        return id;
+        return gameid;
     }
 
     public void setId(int idIn) {
-        this.id = idIn;
+        this.gameid = idIn;
     }
 
     public void setPlayerA(Player player) {

@@ -14,7 +14,7 @@ import java.math.RoundingMode;
 @XmlRootElement
 @PersistenceCapable
 public class Player {
-  @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private int id;
+  @PrimaryKey @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY) private int playerid;
   @Persistent @Unique
     private String emailAddress;
   @Persistent
@@ -27,8 +27,8 @@ public class Player {
 
   }
 
-  public Player(int id, String emailAddress, String name, int wins, int losses) {
-    this.id = id;
+  public Player(int playerid, String emailAddress, String name, int wins, int losses) {
+    this.playerid = playerid;
     this.emailAddress = emailAddress;
     this.name = name;
     this.wins = wins;
@@ -41,7 +41,7 @@ public class Player {
 
 
   public int getId() {
-    return id;
+    return playerid;
   }
 
   public String getName() {
@@ -53,7 +53,7 @@ public class Player {
   }
 
   public void setId(int idIn) {
-    this.id = idIn;
+    this.playerid = idIn;
   }
 
   public void setName(String nameIn) {
