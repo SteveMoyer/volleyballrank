@@ -180,6 +180,17 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <configuration>
+          <changeLogFile>${project.basedir}/src/main/liquibase/master.xml</changeLogFile>
+          <driver>org.h2.Driver</driver>
+          <url>jdbc:h2:file:./target/db/vb-rank</url>
+          <username></username>
+          <password></password>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
