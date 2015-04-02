@@ -26,7 +26,8 @@ public class GameService {
   final Provider<PersistenceManager> pmf;
   final PlayerService playerService;
   //private static final Logger log = Logger.getLogger(PlayerService.class.getName());
-@Inject public GameService(Provider<PersistenceManager> pmf,PlayerService playerService) {
+@Inject
+public GameService(Provider<PersistenceManager> pmf,PlayerService playerService) {
   this.pmf=pmf;
   this.playerService=playerService;
 }
@@ -40,10 +41,10 @@ public class GameService {
     game.setPostedBy(emailAddress);
     //TODO: figure out how to attach the posted games rather than looking them up
     boolean teamABWon = game.getTeamABScore() > game.getTeamCDScore();
-    game.setPlayerA(addPlayerGame(game.getPlayerA(), teamABWon));
-    game.setPlayerB(addPlayerGame(game.getPlayerB(), teamABWon));
-    game.setPlayerC(addPlayerGame(game.getPlayerC(), !teamABWon));
-    game.setPlayerD(addPlayerGame(game.getPlayerD(), !teamABWon));
+    game.setPlayerA(playerService.addPlayerGame(game.getPlayerA(), teamABWon));
+    game.setPlayerB(playerService.addPlayerGame(game.getPlayerB(), teamABWon));
+    game.setPlayerC(playerService.addPlayerGame(game.getPlayerC(), !teamABWon));
+    game.setPlayerD(playerService.addPlayerGame(game.getPlayerD(), !teamABWon));
     Game updatedGame = pmf.get().makePersistent(game);
 
     return updatedGame;
@@ -52,15 +53,5 @@ public class GameService {
     Query q = pmf.get().newQuery("javax.jdo.query.SQL","select * from game where playerA_id = ?1 or playerB_id = ?1 or playerC_id = ?1 or playerD_id = ?1");
     q.setClass(Game.class);
     return (List<Game>) q.execute(playerId);
-  }
-
-  private Player addPlayerGame(Player player, boolean wonGame) {
-    Player updatedPlayer = playerService.getPlayer(player.getId());
-    if(wonGame) {
-      updatedPlayer.setWins(player.getWins() + 1);
-    } else {
-      updatedPlayer.setLosses(player.getLosses() + 1);
-    }
-    return pmf.get().makePersistent(updatedPlayer);
   }
 }

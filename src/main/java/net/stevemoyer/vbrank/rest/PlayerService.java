@@ -41,6 +41,16 @@ public class PlayerService {
         Response.status(Status.UNAUTHORIZED).type(MediaType.APPLICATION_JSON).build());
   }
 
+  public Player addPlayerGame(Player player, boolean wonGame) {
+    Player updatedPlayer = getPlayer(player.getId());
+    if(wonGame) {
+      updatedPlayer.setWins(player.getWins() + 1);
+    } else {
+      updatedPlayer.setLosses(player.getLosses() + 1);
+    }
+    return pmf.get().makePersistent(updatedPlayer);
+  }
+
   @GET @Path("{playerId}") public Player getPlayer(@PathParam("playerId") int playerId) {
     return pmf.get().getObjectById(Player.class,playerId);
   }
